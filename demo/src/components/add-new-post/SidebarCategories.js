@@ -21,23 +21,28 @@ const SidebarCategories = ({ title }) => (
     <CardBody className="p-0">
       <ListGroup flush>
         <ListGroupItem className="px-3 pb-2">
-          <FormCheckbox className="mb-1" value="uncategorized" defaultChecked>
-            Uncategorized
+          <FormCheckbox className="mb-1" value="politics" defaultChecked>
+            Politics
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="design" defaultChecked>
-            Design
+          <FormCheckbox className="mb-1" value="business" >
+            Business
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="development">
-            Development
+          <FormCheckbox className="mb-1" value="technology">
+            Technology
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="writing">
-            Writing
+          <FormCheckbox className="mb-1" value="sports">
+            Sports
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="books">
-            Books
+        <FormCheckbox className="mb-1" value="entertainment">
+            Entertainment
           </FormCheckbox>
-        </ListGroupItem>
 
+          <FormCheckbox className="mb-1" value="uncategorized">
+              Uncategorized
+            </FormCheckbox>
+
+        </ListGroupItem>
+{/*
         <ListGroupItem className="d-flex px-3">
           <InputGroup className="ml-auto">
             <FormInput placeholder="New category" />
@@ -47,7 +52,7 @@ const SidebarCategories = ({ title }) => (
               </Button>
             </InputGroupAddon>
           </InputGroup>
-        </ListGroupItem>
+        </ListGroupItem>*/}
       </ListGroup>
     </CardBody>
   </Card>

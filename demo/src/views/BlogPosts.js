@@ -14,6 +14,11 @@ import {
 
 import PageTitle from "../components/common/PageTitle";
 
+import Newspost from "../components/news-post/post";
+
+import Breakingnews from "../components/news-post/breaking-news";
+
+
 class BlogPosts extends React.Component {
   constructor(props) {
     super(props);
@@ -186,11 +191,23 @@ class BlogPosts extends React.Component {
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
          <Row noGutters className="page-header py-4">
-          <PageTitle sm="4" title="Blog Posts" subtitle="Components" className="text-sm-left" />
+          <PageTitle sm="4" title="News Posts" className="text-sm-left" />
         </Row>
 
-        {/* First Row of Posts */}
         <Row>
+            <Col lg="9" md="12">
+              <Newspost />
+            </Col>
+            <Col lg="3" md="12">
+
+                <Breakingnews />
+            </Col>
+        </Row>
+
+
+
+        {/* First Row of Posts */}
+        {/* <Row>
           {PostsListOne.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--1">
@@ -227,9 +244,9 @@ class BlogPosts extends React.Component {
             </Col>
           ))}
         </Row>
-
+*/}
         {/* Second Row of Posts */}
-        <Row>
+        {/*<Row>
           {PostsListTwo.map((post, idx) => (
             <Col lg="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post card-post--aside card-post--1">
@@ -266,9 +283,9 @@ class BlogPosts extends React.Component {
             </Col>
           ))}
         </Row>
-
+*/}
         {/* Third Row of Posts */}
-        <Row>
+        {/*<Row>
           {PostsListThree.map((post, idx) => (
             <Col lg="4" key={idx}>
               <Card small className="card-post mb-4">
@@ -302,9 +319,9 @@ class BlogPosts extends React.Component {
             </Col>
           ))}
         </Row>
-
+*/}
         {/* Fourth Row of posts */}
-        <Row>
+        {/*<Row>
           {PostsListFour.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
               <Card small className="card-post h-100">
@@ -336,6 +353,7 @@ class BlogPosts extends React.Component {
             </Col>
           ))}
         </Row>
+        */}
       </Container>
     );
   }
