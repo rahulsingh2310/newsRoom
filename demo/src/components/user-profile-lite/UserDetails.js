@@ -61,14 +61,14 @@ UserDetails.propTypes = {
 
 UserDetails.defaultProps = {
   userDetails: {
-    name: "Sierra Brooks",
+    name: "Chris messina",
     avatar: require("./../../images/avatars/0.jpg"),
     jobTitle: "Project Manager",
     performanceReportTitle: "Workload",
     performanceReportValue: 74,
     metaTitle: "Description",
     metaValue:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?"
+      "Chris Messina has spent over 15 years  living on the edge of social technology. He has designed products and experiences for Google and Uber, founded startups, and changed the world by giving away many of his creations, including the hashtag. His skillset is broad, anchored in product and user experience design. He lead developer experience at Uber and co-founded Molly (YC W’18), a conversational social AI."
   }
 };
 
