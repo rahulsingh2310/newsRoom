@@ -12,6 +12,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import OtherUserProfileLite from "./views/otheruserprofile";
 
 export default [
   {
@@ -29,6 +30,11 @@ export default [
     path: "/user-profile-lite",
     layout: DefaultLayout,
     component: UserProfileLite
+  },
+  {
+    path: "/other-user-profile-lite",
+    layout: DefaultLayout,
+    component: OtherUserProfileLite
   },
   {
     path: "/add-new-post",

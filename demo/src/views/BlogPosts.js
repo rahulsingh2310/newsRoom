@@ -195,12 +195,11 @@ class BlogPosts extends React.Component {
         </Row>
 
         <Row>
-            <Col lg="9" md="12">
+            <Col lg="8" md="12">
               <Newspost />
             </Col>
-            <Col lg="3" md="12">
-
-                <Breakingnews />
+            <Col lg="4" md="12">
+            <Breakingnews />
             </Col>
         </Row>
 

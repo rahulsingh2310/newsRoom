@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  Container,
   Row,
   Col,
   FormSelect,
@@ -50,7 +49,6 @@ class UsersByDevice extends React.Component {
   render() {
     const { title } = this.props;
     return (
-      <Container>
       <Card small className="h-100">
         <CardHeader className="border-bottom">
           <h6 className="m-0">{title}</h6>
@@ -62,9 +60,28 @@ class UsersByDevice extends React.Component {
             className="blog-users-by-device m-auto"
           />
         </CardBody>
-
+        <CardFooter className="border-top">
+          <Row>
+            <Col>
+              <FormSelect
+                size="sm"
+                value="last-week"
+                style={{ maxWidth: "130px" }}
+                onChange={() => {}}
+              >
+                <option value="last-week">Last Week</option>
+                <option value="today">Today</option>
+                <option value="last-month">Last Month</option>
+                <option value="last-year">Last Year</option>
+              </FormSelect>
+            </Col>
+            <Col className="text-right view-report">
+              {/* eslint-disable-next-line */}
+              <a href="#">View full report &rarr;</a>
+            </Col>
+          </Row>
+        </CardFooter>
       </Card>
-      </Container>
     );
   }
 }
@@ -89,19 +106,20 @@ UsersByDevice.propTypes = {
 };
 
 UsersByDevice.defaultProps = {
-  title: "Trust Chart",
+  title: "Users by device",
   chartData: {
     datasets: [
       {
         hoverBorderColor: "#ffffff",
-        data: [78.3, 21.7],
+        data: [68.3, 24.2, 7.5],
         backgroundColor: [
           "rgba(0,123,255,0.9)",
+          "rgba(0,123,255,0.5)",
           "rgba(0,123,255,0.3)"
         ]
       }
     ],
-    labels: ["Trusted News", "Fake News"]
+    labels: ["Desktop", "Tablet", "Mobile"]
   }
 };
 
