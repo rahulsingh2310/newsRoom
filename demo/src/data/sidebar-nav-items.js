@@ -11,6 +11,11 @@ export default function() {
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/blog-posts",
     },
+    /*{
+      title: "News Full Post",
+      htmlBefore: '<i class="material-icons">vertical_split</i>',
+      to: "/news-full-post",
+    },*/
     {
       title: "Add New Post",
       htmlBefore: '<i class="material-icons">note_add</i>',

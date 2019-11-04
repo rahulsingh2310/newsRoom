@@ -13,6 +13,7 @@ import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import OtherUserProfileLite from "./views/otheruserprofile";
+import NewsFullPosts from "./views/newsfullpost";
 
 export default [
   {
@@ -60,5 +61,10 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/news-full-post",
+    layout: DefaultLayout,
+    component: NewsFullPosts
   }
 ];

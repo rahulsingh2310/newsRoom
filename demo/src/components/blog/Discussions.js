@@ -12,7 +12,7 @@ import {
 } from "shards-react";
 
 const Discussions = ({ title, discussions }) => (
-  <Card small className="blog-comments">
+  <Card small className="blog-comments sticky-top" style={{top:"90px"}}>
     <CardHeader className="border-bottom">
       <h6 className="m-0">{title}</h6>
     </CardHeader>
@@ -21,52 +21,28 @@ const Discussions = ({ title, discussions }) => (
       {discussions.map((discussion, idx) => (
         <div key={idx} className="blog-comments__item d-flex p-3">
           {/* Avatar */}
+
           <div className="blog-comments__avatar mr-3">
             <img src={discussion.author.image} alt={discussion.author.name} />
           </div>
 
           {/* Content */}
-          <div className="blog-comments__content">
+          <div className="w-50">
             {/* Content :: Title */}
-            <div className="blog-comments__meta text-mutes">
-              <a className="text-secondary" href={discussion.author.url}>
-                {discussion.author.name}
-              </a>{" "}
-              on{" "}
-              <a className="text-secondary" href={discussion.post.url}>
-                {discussion.post.title}
-              </a>
-              <span className="text-mutes">- {discussion.date}</span>
+            <a className="text-secondary" href={discussion.author.url}>
+              {discussion.author.name}
+            </a>
+
             </div>
 
-            {/* Content :: Body */}
-            <p className="m-0 my-1 mb-2 text-muted">{discussion.body}</p>
+            <div>
 
-            {/* Content :: Actions */}
-            <div className="blog-comments__actions">
-              <ButtonGroup size="sm">
-                <Button theme="white">
-                  <span className="text-success">
-                    <i className="material-icons">check</i>
-                  </span>{" "}
-                  Approve
-                </Button>
-                <Button theme="white">
-                  <span className="text-danger">
-                    <i className="material-icons">clear</i>
-                  </span>{" "}
-                  Reject
-                </Button>
-                <Button theme="white">
-                  <span className="text-light">
-                    <i className="material-icons">more_vert</i>
-                  </span>{" "}
-                  Edit
-                </Button>
-              </ButtonGroup>
+            <Button pill >Follow</Button>
+
+
             </div>
-          </div>
-        </div>
+
+</div>
       ))}
     </CardBody>
 
@@ -74,7 +50,7 @@ const Discussions = ({ title, discussions }) => (
       <Row>
         <Col className="text-center view-report">
           <Button theme="white" type="submit">
-            View All Comments
+            View All
           </Button>
         </Col>
       </Row>
@@ -94,50 +70,51 @@ Discussions.propTypes = {
 };
 
 Discussions.defaultProps = {
-  title: "Discussions",
+  title: "People You May Know",
   discussions: [
     {
       id: 1,
-      date: "3 days ago",
       author: {
         image: require("../../images/avatars/1.jpg"),
-        name: "John Doe",
+        name: "Ranjan",
         url: "#"
-      },
-      post: {
-        title: "Hello World!",
-        url: "#"
-      },
-      body: "Well, the way they make shows is, they make one show ..."
+      }
     },
     {
       id: 2,
-      date: "4 days ago",
+
       author: {
         image: require("../../images/avatars/2.jpg"),
-        name: "John Doe",
+        name: "Vaibhav",
         url: "#"
-      },
-      post: {
-        title: "Hello World!",
-        url: "#"
-      },
-      body: "After the avalanche, it took us a week to climb out. Now..."
+      }
     },
     {
       id: 3,
-      date: "5 days ago",
+
       author: {
         image: require("../../images/avatars/3.jpg"),
-        name: "John Doe",
+        name: "Ravish",
         url: "#"
-      },
-      post: {
-        title: "Hello World!",
+      }
+    },
+    {
+      id: 4,
+      author: {
+        image: require("../../images/avatars/1.jpg"),
+        name: "Piyush",
         url: "#"
-      },
-      body: "My money's in that office, right? If she start giving me..."
+      }
+    },
+    {
+      id: 5,
+      author: {
+        image: require("../../images/avatars/1.jpg"),
+        name: "Aditya",
+        url: "#"
+      }
     }
+
   ]
 };
 

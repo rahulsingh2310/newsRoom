@@ -10,7 +10,7 @@ import {
 } from "shards-react";
 
 const UserDetails = ({ userDetails }) => (
-  <Card small className="mb-4 pt-3" style={{position:"sticky"}}>
+  <Card small className="mb-4 pt-3 sticky-top" style={{top:"69px"}}>
     <CardHeader className="border-bottom text-center">
       <div className="mb-3 mx-auto">
         <img
@@ -27,21 +27,6 @@ const UserDetails = ({ userDetails }) => (
       </Button>
     </CardHeader>
     <ListGroup flush>
-      <ListGroupItem className="px-4">
-        <div className="progress-wrapper">
-          <strong className="text-muted d-block mb-2">
-            {userDetails.performanceReportTitle}
-          </strong>
-          <Progress
-            className="progress-sm"
-            value={userDetails.performanceReportValue}
-          >
-            <span className="progress-value">
-              {userDetails.performanceReportValue}%
-            </span>
-          </Progress>
-        </div>
-      </ListGroupItem>
       <ListGroupItem className="p-4">
         <strong className="text-muted d-block mb-2">
           {userDetails.metaTitle}
@@ -64,8 +49,6 @@ UserDetails.defaultProps = {
     name: "Chris messina",
     avatar: require("./../../images/avatars/0.jpg"),
     jobTitle: "Project Manager",
-    performanceReportTitle: "Workload",
-    performanceReportValue: 74,
     metaTitle: "Description",
     metaValue:
       "Chris Messina has spent over 15 years  living on the edge of social technology. He has designed products and experiences for Google and Uber, founded startups, and changed the world by giving away many of his creations, including the hashtag. His skillset is broad, anchored in product and user experience design. He lead developer experience at Uber and co-founded Molly (YC W’18), a conversational social AI."

@@ -9,7 +9,7 @@ import {
   CardFooter,
   Button
 } from "shards-react";
-
+import { Link } from "react-router-dom";
 export default function Newspost() {
   return (
     <Container>
@@ -23,7 +23,7 @@ export default function Newspost() {
       <CardBody>
         <CardTitle>News Headline</CardTitle>
         <p>News Description</p>
-        <Button>Read more &rarr;</Button>
+        <Button tag={Link} to="/news-full-post">Read more &rarr;</Button>
       </CardBody>
 
       {/*<CardFooter>Card footer</CardFooter>*/}
@@ -34,7 +34,7 @@ export default function Newspost() {
       {/*<CardHeader>Card header</CardHeader>
       */}
 
-      <CardImg top src="car.jpg" style={{ maxHeight: "330px" }}/>
+      <CardImg top src="sea.jpg" style={{ maxHeight: "330px" }}/>
       <CardBody>
         <CardTitle>News Headline</CardTitle>
         <p>News Description</p>

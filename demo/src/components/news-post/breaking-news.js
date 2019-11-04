@@ -4,9 +4,9 @@ import { Container, Row, Col, Card, CardBody, CardImg } from "shards-react";
 
 export default function Breakingnews() {
   return (
-    <Container>
 
-      <Row style={{position:"-webkit-fixed",position:"fixed",maxWidth: "250px",top:"112px",right:"50px"}}>
+      <Card style={{position:"-webkit-fixed",position:"fixed",maxWidth: "212px",top:"112px"}}>
+      <Row >
         <Col >
           <Card>
             <CardImg top src="https://place-hold.it/300x200" />
@@ -24,7 +24,7 @@ export default function Breakingnews() {
           </Card>
         </Col>
       </Row>
+        </Card>
 
-    </Container>
   );
 }
