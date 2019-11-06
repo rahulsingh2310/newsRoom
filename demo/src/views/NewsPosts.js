@@ -19,7 +19,7 @@ import Newspost from "../components/news-post/post";
 import Breakingnews from "../components/news-post/breaking-news";
 
 
-class BlogPosts extends React.Component {
+class NewsPosts extends React.Component {
   constructor(props) {
     super(props);
 
@@ -361,4 +361,4 @@ class BlogPosts extends React.Component {
   }
 }
 
-export default BlogPosts;
+export default NewsPosts;

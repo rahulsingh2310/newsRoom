@@ -9,7 +9,12 @@ export default function() {
     {
       title: "News Posts",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts",
+      to: "/news-posts",
+    },
+    {
+      title: "Trending News",
+      htmlBefore: '<i class="material-icons">whatshot</i>',
+      to: "/trending-news",
     },
     /*{
       title: "News Full Post",

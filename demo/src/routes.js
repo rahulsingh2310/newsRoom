@@ -1,4 +1,4 @@
-import React from "react";
+ import React from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
@@ -11,16 +11,17 @@ import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
-import BlogPosts from "./views/BlogPosts";
+import NewsPosts from "./views/NewsPosts";
 import OtherUserProfileLite from "./views/otheruserprofile";
 import NewsFullPosts from "./views/newsfullpost";
+import Trendingnews from "./views/trendingnews"
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-posts" />
+    component: () => <Redirect to="/news-posts" />
   },
   {
     path: "/blog-overview",
@@ -58,13 +59,18 @@ export default [
     component: Tables
   },
   {
-    path: "/blog-posts",
+    path: "/news-posts",
     layout: DefaultLayout,
-    component: BlogPosts
+    component: NewsPosts
   },
   {
     path: "/news-full-post",
     layout: DefaultLayout,
     component: NewsFullPosts
+  },
+  {
+    path: "/trending-news",
+    layout: DefaultLayout,
+    component: Trendingnews
   }
 ];

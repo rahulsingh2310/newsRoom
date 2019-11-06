@@ -20,13 +20,35 @@ export default function Newspost() {
       */}
 
       <CardImg top src="car.jpg" style={{ maxHeight: "330px" }}/>
-      <CardBody>
+      <CardBody className="border-bottom">
         <CardTitle>News Headline</CardTitle>
         <p>News Description</p>
-        <Button tag={Link} to="/news-full-post">Read more &rarr;</Button>
+
+      
       </CardBody>
 
-      {/*<CardFooter>Card footer</CardFooter>*/}
+      <CardFooter>
+      <div className="w-100">
+
+        <div className="mr-5 ml-3 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>favorite_border</i>
+
+        </div>
+
+        <div className="mr-5 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>comment</i>
+
+        </div>
+
+        <div className="mr-5 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>share</i>
+        </div>
+        <div className="ml-5 float-right">
+          <Button tag={Link} to="/news-full-post" >Read more &rarr;</Button>
+        </div>
+
+  </div>
+</CardFooter>
     </Card>
 
     < br></br>
@@ -41,7 +63,8 @@ export default function Newspost() {
         <Button>Read more &rarr;</Button>
       </CardBody>
 
-      {/*<CardFooter>Card footer</CardFooter>*/}
+
+
     </Card>
 
     </Col>

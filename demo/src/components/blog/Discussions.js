@@ -12,7 +12,7 @@ import {
 } from "shards-react";
 
 const Discussions = ({ title, discussions }) => (
-  <Card small className="blog-comments sticky-top" style={{top:"90px"}}>
+  <Card small className="blog-comments sticky-top" style={{top:"90px",zIndex:"-1"}}>
     <CardHeader className="border-bottom">
       <h6 className="m-0">{title}</h6>
     </CardHeader>
@@ -37,7 +37,7 @@ const Discussions = ({ title, discussions }) => (
 
             <div>
 
-            <Button pill >Follow</Button>
+            <Button pill > <i class="material-icons">person</i>Follow</Button>
 
 
             </div>

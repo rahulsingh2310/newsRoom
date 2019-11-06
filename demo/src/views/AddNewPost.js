@@ -3,7 +3,8 @@ import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-post/Editor";
-import SidebarActions from "../components/add-new-post/SidebarActions";
+/*import SidebarActions from "../components/add-new-post/SidebarActions";*/
+
 import SidebarCategories from "../components/add-new-post/SidebarCategories";
 
 const AddNewPost = () => (
@@ -22,7 +23,7 @@ const AddNewPost = () => (
       {/* Sidebar Widgets */}
       <Col lg="3" md="12">
         <SidebarCategories />
-        <SidebarActions />
+
       </Col>
     </Row>
   </Container>
