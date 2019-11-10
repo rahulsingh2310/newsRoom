@@ -43,17 +43,6 @@ const SidebarCategories = ({ title }) => (
 
 
         </ListGroupItem>
-{/*
-        <ListGroupItem className="d-flex px-3">
-          <InputGroup className="ml-auto">
-            <FormInput placeholder="New category" />
-            <InputGroupAddon type="append">
-              <Button theme="white" className="px-2">
-                <i className="material-icons">add</i>
-              </Button>
-            </InputGroupAddon>
-          </InputGroup>
-        </ListGroupItem>*/}
       </ListGroup>
     </CardBody>
   </Card>

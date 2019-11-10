@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 
 // Layout Types
 import { DefaultLayout } from "./layouts";
+import { DefaultLayout1 } from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
@@ -14,7 +15,8 @@ import Tables from "./views/Tables";
 import NewsPosts from "./views/NewsPosts";
 import OtherUserProfileLite from "./views/otheruserprofile";
 import NewsFullPosts from "./views/newsfullpost";
-import Trendingnews from "./views/trendingnews"
+import TrendingNews from "./views/trendingnews"
+import Login from "./components/user-login/login"
 
 export default [
   {
@@ -71,6 +73,12 @@ export default [
   {
     path: "/trending-news",
     layout: DefaultLayout,
-    component: Trendingnews
+    component: TrendingNews
+  },
+  {
+    path: "/login",
+    layout: DefaultLayout1,
+    component: Login
   }
+
 ];

@@ -16,7 +16,7 @@ import {
 } from "shards-react";
 import UsersByDevice from "../blog/UsersByDevice";
 
-const OtherUserAccountDetails = ({ title,firstname,lastname,email,address,dob,age,contact }) => (
+const OtherUserAccountDetails = ({ title,name,email,address,dob,age,contact }) => (
   <Card small className="mb-4">
     <CardHeader className="border-bottom">
       <h6 className="m-0">{title}</h6>
@@ -31,34 +31,10 @@ const OtherUserAccountDetails = ({ title,firstname,lastname,email,address,dob,ag
                 <Col md="6" className="form-group">
 
                   <strong className="text-muted d-block mb-2">
-                First Name : {firstname}
+                First Name : {name}
                   </strong>
                 </Col>
-                {/* Last Name */}
-                <Col md="6" className="form-group">
-
-                  <strong className="text-muted d-block mb-2">
-                Last Name : {lastname}
-                  </strong>
-                </Col>
-              </Row>
-
-              <Row form>
-                {/* Email */}
-                <Col md="6" className="form-group">
-
-                  <strong className="text-muted d-block mb-2">
-                  D.O.B : {dob}
-                  </strong>
-
-                </Col>
-                <Col md="6" className="form-group">
-
-                  <strong className="text-muted d-block mb-2">
-                  Age : {age}
-                  </strong>
-                </Col>
-
+                
               </Row>
               <Row>
 
@@ -136,8 +112,7 @@ OtherUserAccountDetails.propTypes = {
 
 OtherUserAccountDetails.defaultProps = {
   title: "Account Details",
-  firstname:"Chris",
-  lastname:"Messina",
+  name:"Chris Messina",
   email:"chrismessina@gmail.com",
   address:"2025 M Street, Northwest, Washington, DC, 20036",
   dob:"Dec 13th,1984",

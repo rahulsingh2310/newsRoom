@@ -7,8 +7,24 @@ import OtherUserAccountDetails from "../components/user-profile-lite/OtherUserAc
 
 import Newspost from "../components/news-post/post";
 
-const OtherUserProfileLite = () => (
-  <Container fluid className="main-content-container px-4">
+
+
+class OtherUserProfileLite extends Component {
+  state = {
+    user : []
+
+  }
+
+  componentDidMount(){
+    axios.get( 'http://localhost:8080/auth/user')
+    .then( response => {
+      this.setState({user:response.data.posts});
+      console.log(response);
+    });
+  }
+
+  render () {
+    <Container fluid className="main-content-container px-4">
     <Row noGutters className="page-header py-4">
       <PageTitle title="User Profile" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
     </Row>
@@ -22,6 +38,11 @@ const OtherUserProfileLite = () => (
       </Col>
     </Row>
   </Container>
-);
+
+
+
+  }
+
+}
 
 export default OtherUserProfileLite;
