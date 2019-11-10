@@ -13,7 +13,7 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import NewsPosts from "./views/NewsPosts";
-import OtherUserProfileLite from "./views/otheruserprofile";
+//import OtherUserProfileLite from "./views/otheruserprofile";
 import NewsFullPosts from "./views/newsfullpost";
 import TrendingNews from "./views/trendingnews"
 import Login from "./components/user-login/login"
@@ -35,11 +35,11 @@ export default [
     layout: DefaultLayout,
     component: UserProfileLite
   },
-  {
-    path: "/other-user-profile-lite",
-    layout: DefaultLayout,
-    component: OtherUserProfileLite
-  },
+  // {
+  //   path: "/other-user-profile-lite",
+  //   layout: DefaultLayout,
+  //   component: OtherUserProfileLite
+  // },
   {
     path: "/add-new-post",
     layout: DefaultLayout,

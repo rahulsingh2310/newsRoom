@@ -28,7 +28,7 @@ const Discussions = ({ title, discussions }) => (
           </div>
 
           {/* Content */}
-          <div className="w-50 mr-3">
+          <div className="w-50 mr-1">
             {/* Content :: Title */}
             <a className="text-secondary" href={discussion.author.url}>
               {discussion.author.name}
@@ -39,8 +39,8 @@ const Discussions = ({ title, discussions }) => (
         className="mb-3"
         value={discussion.author.trustfactor}
       />
-      
-      
+
+
             </div>
 
             <div>
