@@ -28,23 +28,23 @@ exports.signup = (req, res, next) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
-  const dob = req.body.dob;
-  const mobile = req.body.mobile;
-  const city = req.body.city;
-  const zipcode = req.body.zipcode;
-  const state = req.body.state;
+  // const dob = req.body.dob;
+  // const mobile = req.body.mobile;
+  // const city = req.body.city;
+  // const zipcode = req.body.zipcode;
+  // const state = req.body.state;
   bcrypt
     .hash(password, 12)
     .then(hashedPw => {
       const user = new User({
         email: email,
         password: hashedPw,
-        name: name,
-        dob: dob,
-        mobile: mobile,
-        city: city,
-        zipcode: zipcode,
-        state: state
+        name: name
+        // dob: dob,
+        // mobile: mobile,
+        // city: city,
+        // zipcode: zipcode,
+        // state: state
       });
       return user.save();
     })

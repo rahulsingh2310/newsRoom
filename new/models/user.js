@@ -16,25 +16,26 @@ const userSchema = new Schema({
   },
   dob: {
     type: Date,
-    required: true
+    required: false
   },
   mobile: {
     type: Number,
-    default: 0
+    default: 0,
+    required: false
   },
   city: {
     type: String,
-    required: true
+    required: false
   },
   zipcode: {
     type: Number,
     min: 100000,
     max: 999999,
-    required: true
+    required: false
   },
   state: {
     type: String,
-    required: true
+    required: false
   },
   status: {
     type: String,
@@ -43,7 +44,8 @@ const userSchema = new Schema({
   posts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Post"
+      ref: "Post",
+      required: false
     }
   ],
   likedposts: [
