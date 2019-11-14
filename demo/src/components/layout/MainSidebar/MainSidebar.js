@@ -61,9 +61,7 @@ class MainSidebar extends React.Component {
 }
 
 MainSidebar.propTypes = {
-  /**
-   * Whether to hide the logo text, or not.
-   */
+
   hideLogoText: PropTypes.bool
 };
 

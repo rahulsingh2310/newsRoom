@@ -10,21 +10,20 @@ import {
   Button
 } from "shards-react";
 import { Link } from "react-router-dom";
-export default function Newspost() {
-  return (
+
+
+
+const posts = (props) => (
     <Container>
       <Row>
         <Col>
     <Card>
-      {/*<CardHeader>Card header</CardHeader>
-      */}
-
       <CardImg top src="car.jpg" style={{ maxHeight: "330px" }}/>
       <CardBody className="border-bottom">
-        <CardTitle>Ayodhya Verdict on Ram Janmabhoomi-Babri Masjid land dispute case 
+        <CardTitle>{props.title}
           </CardTitle>
          
-          <span className="float-right" style={{fontSize:"15px"}}>by Pallavi Sareen</span> 
+          <span className="float-right" style={{fontSize:"15px"}}>{props.user}</span> 
       </CardBody>
 
       <CardFooter style={{height:"70px"}}>
@@ -32,12 +31,12 @@ export default function Newspost() {
 
         <div className="mr-5 ml-3 float-left">
             <i class="material-icons" style={{fontSize:"30px"}}>thumb_up_alt</i>
-            <span>10</span>
+            <span>{props.like}</span>
         </div>
 
         <div className="mr-5 float-left">
             <i class="material-icons" style={{fontSize:"30px"}}>thumb_down_alt</i>
-            <span>5</span>
+            <span>{props.dislike}</span>
         </div>
 
         <div className="mr-5 float-left">
@@ -54,32 +53,19 @@ export default function Newspost() {
         <div className="ml-5 float-right">
           <Button tag={Link} to="/news-full-post" >Read more &rarr;</Button>
         </div>
-        {/* <div className="float-right">
-          <p>by Pallavi Sareen</p>
-        </div> */}
 
-  </div>
-</CardFooter>
-    </Card>
+    </div>
+  </CardFooter>
+      </Card>
 
-    < br></br>
-    <Card>
-      {/*<CardHeader>Card header</CardHeader>
-      */}
-
-      <CardImg top src="sea.jpg" style={{ maxHeight: "330px" }}/>
-      <CardBody>
-        <CardTitle>News Headline</CardTitle>
-        <p>News Description</p>
-        <Button>Read more &rarr;</Button>
-      </CardBody>
+      </Col>
+    </Row>
+  </Container>
+);
 
 
 
-    </Card>
+export default posts;
 
-    </Col>
-  </Row>
-</Container>
-  );
-}
+
+
