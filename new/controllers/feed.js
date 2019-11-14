@@ -5,10 +5,14 @@ const { validationResult } = require("express-validator/check");
 
 const Post = require("../models/post");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 
 exports.getPosts = (req, res, next) => {
   Post.find()
+    // .populate("creator")
+    .populate({ path: "likes", select: "name" })
     .then(posts => {
+      console.log(posts);
       res.status(200).json({
         message: "Fetched posts successfully",
         posts: posts
@@ -46,7 +50,8 @@ exports.createPost = (req, res, next) => {
     title: title,
     content: content,
     imageUrl: imageUrl2, //change it to imageUrl1 for LINUX or MAC
-    creator: req.userId
+    creator: req.userId,
+    tag: req.tags
   });
   post
     .save()
@@ -185,4 +190,184 @@ exports.deletePost = (req, res, next) => {
 const clearImage = filePath => {
   filePath = path.join(__dirname, "..", filePath);
   fs.unlink(filePath, err => console.log(err));
+};
+
+const findArray = (list, userId) => {
+  for (var id of list.values()) {
+    if (id == userId) {
+      return true;
+    }
+  }
+  return false;
+};
+
+exports.likeHandler = (req, res, next) => {
+  const postId = req.params.postId;
+  let flag;
+  let currentPost;
+  let disliked;
+  Post.findById(postId)
+    .then(post => {
+      if (!post) {
+        const error = new Error("Could not find post");
+        error.statusCode = 400;
+        throw error;
+      }
+    })
+    .then(result => {
+      return Post.findById(postId);
+    })
+    .then(post => {
+      currentPost = post;
+      const liked = findArray(post.likes, req.userId);
+      const disliked = findArray(post.dislikes, req.userId);
+      if (!liked) {
+        post.likes.push(req.userId);
+        if (disliked) {
+          post.dislikes.pull(req.userId);
+        }
+        flag = true;
+      } else {
+        post.likes.pull(req.userId);
+        flag = false;
+      }
+      return post.save();
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      if (flag) {
+        user.likedposts.push(currentPost);
+        if (disliked) {
+          user.dislikedposts.pull(currentPost);
+        }
+      } else {
+        user.likedposts.pull(currentPost);
+      }
+      user.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        message: "Reacted Successfully(Liked/Unliked)"
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        console.log("Error 500");
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.dislikeHandler = (req, res, next) => {
+  const postId = req.params.postId;
+  let flag;
+  let currentPost;
+  let liked;
+  Post.findById(postId)
+    .then(post => {
+      if (!post) {
+        const error = new Error("Could not find post");
+        error.statusCode = 400;
+        throw error;
+      }
+    })
+    .then(result => {
+      return Post.findById(postId);
+    })
+    .then(post => {
+      currentPost = post;
+      const liked = findArray(post.likes, req.userId);
+      const disliked = findArray(post.dislikes, req.userId);
+      if (!disliked) {
+        post.dislikes.push(req.userId);
+        if (liked) {
+          post.likes.pull(req.userId);
+        }
+        flag = true;
+      } else {
+        post.dislikes.pull(req.userId);
+        flag = false;
+      }
+      return post.save();
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      if (flag) {
+        user.dislikedposts.push(currentPost);
+        if (liked) {
+          user.likedposts.pull(currentPost);
+        }
+      } else {
+        user.dislikedposts.pull(currentPost);
+      }
+      user.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        message: "Reacted Successfully(DisLiked/Undisliked)"
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        console.log("Error 500");
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.makeComment = (req, res, next) => {
+  const postId = req.params.postId;
+  Post.findById(postId).then(post => {
+    if (!post) {
+      const error = new Error("Could not find post.");
+      error.statusCode = 404;
+      throw error;
+    }
+  });
+  const reaction = req.body.reaction;
+  const reactor = req.userId;
+  let currentPost;
+  // console.log("HHHH");
+  const comment = new Comment({
+    reaction: reaction,
+    reactor: reactor,
+    post: postId
+  });
+  comment
+    .save()
+    .then(result => {
+      // console.log("postId");
+      return Post.findById(req.params.postId);
+    })
+    .then(post => {
+      // console.log(post);
+      currentPost = post;
+      post.comments.push(comment);
+      return post.save();
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      user.commentedposts.push(currentPost);
+      return user.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        message: "Commented succesfully"
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        console.log("Error 500");
+        err.statusCode = 500;
+      }
+      next(err);
+    });
 };

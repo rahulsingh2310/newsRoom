@@ -18,8 +18,8 @@ router.put(
             return Promise.reject("E-mail address already exists!");
           }
         });
-      })
-      .normalizeEmail(),
+      }),
+    // .normalizeEmail(),
     body("password")
       .trim()
       .isLength({ min: 5 }),
@@ -32,5 +32,7 @@ router.put(
 );
 
 router.post("/login", authController.login);
+
+router.get("/confirmation/:token", authController.confirmation);
 
 module.exports = router;

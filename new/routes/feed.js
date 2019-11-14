@@ -41,4 +41,18 @@ router.put(
 
 router.delete("/post/:postId", isAuth, feedController.deletePost);
 
+router.post(
+  "/post/comment/:postId",
+  isAuth,
+  [
+    body("reaction")
+      .trim()
+      .isLength({ min: 1 })
+  ],
+  feedController.makeComment
+);
+
+router.post("/post/like/:postId", isAuth, feedController.likeHandler);
+router.post("/post/dislike/:postId", isAuth, feedController.dislikeHandler);
+
 module.exports = router;

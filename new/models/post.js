@@ -20,7 +20,32 @@ const postSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true
-    }
+    },
+    tag: {
+      type: String,
+      required: false
+    },
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+        required: false
+      }
+    ],
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: false
+      }
+    ],
+    dislikes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: false
+      }
+    ]
   },
   { timestamps: true }
 );
