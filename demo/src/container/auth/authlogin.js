@@ -145,6 +145,7 @@ class Authlogin extends Component {
             );
         }
 
+
         let authRedirect = null;
         if (this.props.isAuthenticated) {
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
@@ -155,6 +156,7 @@ class Authlogin extends Component {
             <div className={classes.Auth}>
                 {authRedirect}
                 {errorMessage}
+
                 <form onSubmit={this.submitHandler}>
                     {form}
                     <Button btnType="Success">SUBMIT</Button>
