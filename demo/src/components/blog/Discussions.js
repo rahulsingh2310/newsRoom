@@ -8,7 +8,8 @@ import {
   ButtonGroup,
   Button,
   Row,
-  Col
+  Col,
+  Progress
 } from "shards-react";
 
 const Discussions = ({ title, discussions }) => (
@@ -27,11 +28,18 @@ const Discussions = ({ title, discussions }) => (
           </div>
 
           {/* Content */}
-          <div className="w-50">
+          <div className="w-50 mr-1">
             {/* Content :: Title */}
             <a className="text-secondary" href={discussion.author.url}>
               {discussion.author.name}
             </a>
+            <Progress
+        theme="success"
+        style={{ height: "6px",width:"75%" }}
+        className="mb-3"
+        value={discussion.author.trustfactor}
+      />
+
 
             </div>
 
@@ -77,7 +85,8 @@ Discussions.defaultProps = {
       author: {
         image: require("../../images/avatars/1.jpg"),
         name: "Ranjan",
-        url: "#"
+        url: "#",
+        trustfactor:65
       }
     },
     {
@@ -86,7 +95,8 @@ Discussions.defaultProps = {
       author: {
         image: require("../../images/avatars/2.jpg"),
         name: "Vaibhav",
-        url: "#"
+        url: "#",
+        trustfactor:75
       }
     },
     {
@@ -95,7 +105,8 @@ Discussions.defaultProps = {
       author: {
         image: require("../../images/avatars/3.jpg"),
         name: "Ravish",
-        url: "#"
+        url: "#",
+        trustfactor:5
       }
     },
     {
@@ -103,7 +114,8 @@ Discussions.defaultProps = {
       author: {
         image: require("../../images/avatars/1.jpg"),
         name: "Piyush",
-        url: "#"
+        url: "#",
+        trustfactor:85
       }
     },
     {
@@ -111,7 +123,8 @@ Discussions.defaultProps = {
       author: {
         image: require("../../images/avatars/1.jpg"),
         name: "Aditya",
-        url: "#"
+        url: "#",
+        trustfactor:45
       }
     }
 

@@ -15,6 +15,8 @@ import {
   Button
 } from "shards-react";
 
+
+
 const UserAccountDetails = ({ title }) => (
   <Card small className="mb-4">
     <CardHeader className="border-bottom">
@@ -28,21 +30,22 @@ const UserAccountDetails = ({ title }) => (
               <Row form>
                 {/* First Name */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feFirstName">First Name</label>
+                  <label htmlFor="feFirstName">Name</label>
                   <FormInput
                     id="feFirstName"
-                    placeholder="First Name"
+                    placeholder="Name"
                     
                     onChange={() => {}}
                   />
                 </Col>
-                {/* Last Name */}
+              </Row>
+              <Row form>
+                {/* City */}
                 <Col md="6" className="form-group">
-                  <label htmlFor="feLastName">Last Name</label>
+                  <label htmlFor="feCity">Contact</label>
                   <FormInput
-                    id="feLastName"
-                    placeholder="Last Name"
-                    value="Brooks"
+                    id="feCity"
+                    placeholder="9876543123"
                     onChange={() => {}}
                   />
                 </Col>
@@ -54,8 +57,8 @@ const UserAccountDetails = ({ title }) => (
                   <FormInput
                     type="email"
                     id="feEmail"
-                    placeholder="Email Address"
-                    value="sierra@example.com"
+                    placeholder="sierra@example.com"
+            
                     onChange={() => {}}
                     autoComplete="email"
                   />
@@ -67,7 +70,7 @@ const UserAccountDetails = ({ title }) => (
                     type="password"
                     id="fePassword"
                     placeholder="Password"
-                    value="EX@MPL#P@$$w0RD"
+                    
                     onChange={() => {}}
                     autoComplete="current-password"
                   />
@@ -78,38 +81,10 @@ const UserAccountDetails = ({ title }) => (
                 <FormInput
                   id="feAddress"
                   placeholder="Address"
-                  value="1234 Main St."
+                  
                   onChange={() => {}}
                 />
               </FormGroup>
-              <Row form>
-                {/* City */}
-                <Col md="6" className="form-group">
-                  <label htmlFor="feCity">City</label>
-                  <FormInput
-                    id="feCity"
-                    placeholder="City"
-                    onChange={() => {}}
-                  />
-                </Col>
-                {/* State */}
-                <Col md="4" className="form-group">
-                  <label htmlFor="feInputState">State</label>
-                  <FormSelect id="feInputState">
-                    <option>Choose...</option>
-                    <option>...</option>
-                  </FormSelect>
-                </Col>
-                {/* Zip Code */}
-                <Col md="2" className="form-group">
-                  <label htmlFor="feZipCode">Zip</label>
-                  <FormInput
-                    id="feZipCode"
-                    placeholder="Zip"
-                    onChange={() => {}}
-                  />
-                </Col>
-              </Row>
               <Row form>
                 {/* Description */}
                 <Col md="12" className="form-group">

@@ -9,33 +9,65 @@ import {
   Progress
 } from "shards-react";
 
-const UserDetails = ({ userDetails }) => (
-  <Card small className="mb-4 pt-3 sticky-top" style={{top:"69px"}}>
+
+
+
+class UserDetails extends React.Component{
+ constructor(props) {
+     super(props);
+     this.state = {
+       follow_logo:"person_add",
+       follow_title:"Follow",
+       follow:true
+     };
+
+     // This binding is necessary to make `this` work in the callback
+     this.handleClick = this.handleClick.bind(this);
+   }
+
+   handleClick() {
+     this.setState(state => ({
+       follow_logo:"person",
+       follow_title:"Followed",
+       follow:true
+
+     }));
+   }
+
+  render() {
+    return (
+      <Card small className="mb-4 pt-3 sticky-top" style={{top:"69px"}}>
     <CardHeader className="border-bottom text-center">
       <div className="mb-3 mx-auto">
         <img
           className="rounded-circle"
-          src={userDetails.avatar}
-          alt={userDetails.name}
+          src={this.props.userDetails.avatar}
+          alt={this.props.userDetails.name}
           width="110"
         />
       </div>
-      <h4 className="mb-0">{userDetails.name}</h4>
-      <span className="text-muted d-block mb-2">{userDetails.jobTitle}</span>
-      <Button pill outline size="sm" className="mb-2">
-        <i className="material-icons mr-1">person_add</i> Follow
+      <h4 className="mb-0">{this.props.userDetails.name}</h4>
+      <span className="text-muted d-block mb-2">{this.props.userDetails.jobTitle}</span>
+      <span className="text-muted d-block mb-2"><i className="material-icons mr-1">rss_feed</i>
+       Followed by 149 people</span>
+      <Button pill outline size="sm" className="mb-2" onClick={this.handleClick}>
+        <i className="material-icons mr-1">{this.state.follow_logo}</i>{this.state.follow_title}
       </Button>
     </CardHeader>
     <ListGroup flush>
       <ListGroupItem className="p-4">
         <strong className="text-muted d-block mb-2">
-          {userDetails.metaTitle}
+          {this.props.userDetails.metaTitle}
         </strong>
-        <span>{userDetails.metaValue}</span>
+        <span>{this.props.userDetails.metaValue}
+        </span>
       </ListGroupItem>
     </ListGroup>
   </Card>
 );
+}
+}
+
 
 UserDetails.propTypes = {
   /**
@@ -51,7 +83,7 @@ UserDetails.defaultProps = {
     jobTitle: "Project Manager",
     metaTitle: "Description",
     metaValue:
-      "Chris Messina has spent over 15 years  living on the edge of social technology. He has designed products and experiences for Google and Uber, founded startups, and changed the world by giving away many of his creations, including the hashtag. His skillset is broad, anchored in product and user experience design. He lead developer experience at Uber and co-founded Molly (YC W’18), a conversational social AI."
+      "Chris Messina has spent over 15 years  living on the edge of social technology."
   }
 };
 
