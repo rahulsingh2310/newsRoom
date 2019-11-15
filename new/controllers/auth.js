@@ -62,7 +62,7 @@ exports.signup = (req, res, next) => {
           console.log(req.body.email);
           transporter
             .sendMail({
-              from: "sunny.rayaprolu@gmail.com",
+              from: "newsroom247xd@gmail.com",
               to: req.body.email,
               sunject: "Confirm Email",
               html: `Please click this link to confirm your email : <a href="${url}">${url}</a>`
@@ -114,7 +114,7 @@ exports.login = (req, res, next) => {
           userId: loadedUser._id.toString()
         },
         "somesupersecretsecret",
-        { expiresIn: "1h" }
+        { expiresIn: "2h" }
       );
       res.status(200).json({ token: token, userId: loadedUser._id.toString() });
     })

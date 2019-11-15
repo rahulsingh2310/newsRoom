@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema(
+const commentSchema = new Schema(
   {
     reaction: {
       type: String,
@@ -22,4 +22,4 @@ const postSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Comment", postSchema);
+module.exports = mongoose.model("Comment", commentSchema);

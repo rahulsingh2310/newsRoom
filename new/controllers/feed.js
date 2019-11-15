@@ -11,6 +11,7 @@ exports.getPosts = (req, res, next) => {
   Post.find()
     // .populate("creator")
     .populate({ path: "likes", select: "name" })
+    .populate({ path: "dislikes", select: "name" })
     .then(posts => {
       console.log(posts);
       res.status(200).json({
@@ -361,6 +362,58 @@ exports.makeComment = (req, res, next) => {
     .then(result => {
       res.status(201).json({
         message: "Commented succesfully"
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        console.log("Error 500");
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+// const findPost = (list,commentId)=>{
+//   for (var id of list.valu)
+// }
+
+exports.deleteComment = (req, res, next) => {
+  const commentId = req.params.commentId;
+  let postOn;
+  Comment.findById(commentId)
+    .then(comment => {
+      if (!comment) {
+        const error = new Error("Could not find comment.");
+        error.statusCode = 404;
+        throw error;
+      }
+      if (comment.reactor.toString() !== req.userId) {
+        const error = new Error("Not Authorized!");
+        // console.log(comment.reactor.toString());
+        // console.log(req.userId);
+        error.statusCode = 403;
+        throw error;
+      }
+      return Comment.findByIdAndRemove(commentId);
+    })
+    .then(result => {
+      return Post.findOne({ comments: { $in: [commentId] } });
+    })
+    .then(post => {
+      postOn = post;
+      post.comments.pull(commentId);
+      post.save();
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      user.commentedposts.pull(postOn);
+      return user.save();
+    })
+    .then(result => {
+      res.status(201).json({
+        message: "Comment Deleted!"
       });
     })
     .catch(err => {
