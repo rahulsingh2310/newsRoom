@@ -5,7 +5,7 @@ const profileController = require("../controllers/profile");
 
 const router = express.Router();
 
-router.get("/profile/:userId", isAuth, profileController.getUser); //userId==logged in user
+router.get("/profile", isAuth, profileController.getUser); //userId==logged in user
 
 router.post("/follow/:userId", isAuth, profileController.follow); //userId who is being followed
 
