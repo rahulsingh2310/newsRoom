@@ -4,6 +4,11 @@ import { Card, CardBody, Form, FormInput,Button } from "shards-react";
 import Editor from "./editor-quill"
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+
 
 
 class Editorbox extends React.Component {
@@ -24,15 +29,18 @@ class Editorbox extends React.Component {
 
   submitHandler = ( event ) => {
     event.preventDefault();
-    this.props.upload( );
+    this.props.onUpload( localStorage.getItem('titleUpload') 
+    , localStorage.getItem('bodyTitle') , this.state.image, localStorage.getItem('tags')  );
   }
+
+  
 
   render() {
     return (
      
       <Card small className="mb-3">
       <CardBody>
-        <Form className="add-new-post" >
+        <Form className="add-new-post" onSubmit={this.submitHandler} >
           <FormInput 
           size="lg" 
           className="mb-3" 
@@ -52,11 +60,11 @@ class Editorbox extends React.Component {
 
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//       onUpload: (title , body ,) => dispatch( actions.uploadPost( email, password) ),
-//       onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+      onUpload: (title,body,image,tags) => dispatch( actions.uploadPost(title,body,image,tags) ),
+      onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+  };
+};
 
-export default Editorbox;
+export default withRouter(connect(null, mapDispatchToProps )(Editorbox));

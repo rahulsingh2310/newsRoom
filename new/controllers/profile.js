@@ -2,6 +2,7 @@ const User = require("../models/user");
 // const path = require("path");
 
 exports.getUser = (req, res, next) => {
+  console.log(req);
   User.findById(req.userId)
     .populate({ path: "followers", select: "name" })
     .populate({ path: "following", select: "name" })

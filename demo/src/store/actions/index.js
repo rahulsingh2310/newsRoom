@@ -7,5 +7,5 @@ export {
 } from './auth';
 
 export{
-    
-}
+    uploadPost
+} from './upload' ; 

@@ -2,10 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../utility';
 
 const initialState = {
-    title: null,
-    body: null,
-    image: null,
-    tag: false,
     loading: false,
     authRedirectPath: '/',
     error: null,
@@ -17,10 +13,6 @@ const uploadStart = ( state, action ) => {
 
 const uploadSuccess = (state, action) => {
     return updateObject( state, { 
-        title: action.title,
-        body: action.content,
-        image: action.image,
-        tag: action.tag,
         error: null,
         loading: false
      } );
