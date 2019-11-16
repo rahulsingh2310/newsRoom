@@ -424,3 +424,62 @@ exports.deleteComment = (req, res, next) => {
       next(err);
     });
 };
+
+exports.supplyPosts = (req, res, next) => {
+  let posts = [];
+  User.find()
+    .populate("posts")
+    .where("subscriptions")
+    .in(["Grammar-Check"])
+    .then(async users => {
+      console.log("USER");
+      console.log(users);
+      for (var user of users.values()) {
+        var user_posts = user.posts;
+        for (var user_post of user_posts.values()) {
+          if (user_post.checkrequire) {
+            user_post = await Post.findById(user_post._id).populate("creator");
+            console.log(user_post);
+            posts.push(user_post);
+          }
+        }
+      }
+
+      return posts;
+    })
+    .then(posts => {
+      res.status(200).json({
+        message: "Check the posts",
+        posts: posts
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      next(error);
+    });
+  // res.json({
+  //   message: "Successfull!!"
+  // });
+};
+
+exports.correctPosts = (req, res, next) => {
+  const posts = req.body.posts;
+  for (var post of posts) {
+    console.log(post);
+    Post.findById(post._id)
+      .then(result => {
+        // console.log(result);
+        result.content = post.content;
+        result.checkrequire = false;
+        result.save();
+        // console.log(result);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  // console.log(posts);
+  res.json({
+    message: "Received and Updated Successfully!!"
+  });
+};

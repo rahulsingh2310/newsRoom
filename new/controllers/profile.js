@@ -109,3 +109,49 @@ exports.follow = (req, res, next) => {
       next(err);
     });
 };
+
+exports.updateProfile = (req, res, next) => {
+  const userId = req.userId;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed, entered data is incorrect.");
+    error.statusCode = 422;
+    throw error;
+  }
+  const name = req.body.name;
+  const dob = req.body.dob;
+  const mobile = req.body.mobile;
+  const city = req.body.city;
+  const zipcode = req.body.zipcode;
+  const state = req.body.state;
+
+  User.findById(userId)
+    .then(user => {
+      if (!user) {
+        const error = new Error("Could not find any User");
+        error.statusCode = 404;
+        throw error;
+      }
+      if (user._id.toString() !== req.userId) {
+        const error = new Error("Not Authorized");
+        error.statusCode = 403;
+        throw error;
+      }
+      user.name = name;
+      user.dob = dob;
+      user.mobile = mobile;
+      user.city = city;
+      user.zipcode = zipcode;
+      user.state = state;
+      return user.save();
+    })
+    .then(result => {
+      res.status(200).json({ message: "Profile Updated!!", user: result });
+    })
+    .catch(error => {
+      if (!error.statusCode) {
+        error.statusCode = 503;
+      }
+      next(error);
+    });
+};
