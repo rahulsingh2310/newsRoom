@@ -52,6 +52,7 @@ class SidebarMainNavbar extends React.Component {
           >
             <i className="material-icons">&#xE5C4;</i>
           </a>
+          
         </Navbar>
       </div>
     );

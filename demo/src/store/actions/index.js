@@ -3,5 +3,9 @@ export {
     authsignup,
     logout,
     setAuthRedirectPath,
-    authCheckState
+    authCheckState,
 } from './auth';
+
+export{
+    uploadPost
+} from './upload' ; 

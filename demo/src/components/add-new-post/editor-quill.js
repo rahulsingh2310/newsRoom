@@ -15,13 +15,21 @@ class Editor extends React.Component {
     
     handleChange (html) {
         this.setState({ editorHtml: html });
+        localStorage.setItem("bodyUpload", this.state.editorHtml);
+
         console.log(this.state);
     }
     
     handleThemeChange (newTheme) {
       if (newTheme === "core") newTheme = null;
-      this.setState({ theme: newTheme })
+      this.setState({ theme: newTheme });
     }
+
+    componentDidMount = () =>{
+      this.setState({ editorHtml : localStorage.getItem("bodyUpload")});
+    }
+
+  
     
     render () {
       return (
@@ -35,7 +43,6 @@ class Editor extends React.Component {
             bounds={'.app'}
             placeholder={this.props.placeholder}
            />
-          
          </div>
        )
     }
@@ -51,7 +58,6 @@ class Editor extends React.Component {
       ['bold', 'italic', 'underline'],
       [{'list': 'ordered'}, {'list': 'bullet'}, 
        {'indent': '-1'}, {'indent': '+1'}],
-      ['image', 'video']
     ],
     clipboard: {
       // toggle to add extra line breaks when pasting HTML:
@@ -66,7 +72,6 @@ class Editor extends React.Component {
     'size',
     'bold', 'italic', 'underline', 
     'list', 'bullet', 'indent',
-    'image', 'video'
   ]
   
   /* 

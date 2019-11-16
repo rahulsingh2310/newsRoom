@@ -3,26 +3,26 @@ import { Card,CardHeader,CardBody,ListGroup,
     ListGroupItem,
     FormCheckbox } from "shards-react";
 
-export default class FormCheckboxExample extends React.Component {
-  constructor(props) {
-    super(props);
+class FormCheckboxExample extends React.Component {
 
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
+    state = {
       Politics: true,
       Business: false,
       Sports: false
     };
     
-  
-  }
-  
   handleChange(e, category) {
     const newState = {};
     newState[category] = !this.state[category];
     this.setState({ ...this.state, ...newState });
-    
+    // console.log(this.state);
   }
+
+  componentDidUpdate =( ) => {
+    localStorage.setItem("tags", JSON.stringify(this.state));
+
+  }
+
 
   render() {
     return (
@@ -60,3 +60,5 @@ export default class FormCheckboxExample extends React.Component {
     );
   }
 }
+
+export default FormCheckboxExample;

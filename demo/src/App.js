@@ -9,12 +9,12 @@ import AuthSignup from "./container/auth/authsignup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 import NewsPosts from "./views/NewsPosts";
-
+import AddNewPost from "./views/AddNewPost";
 import { DefaultLayout } from "./layouts";
 import * as actions from './store/actions/index';
 import TrendingNews from "./views/trendingnews"
-
-
+import UserProfileLite from "./views/UserProfileLite";
+import logout from "./container/auth/logout";
 
 class App extends Component{
 
@@ -30,6 +30,10 @@ class App extends Component{
         <Route path="/auth/signup" component={AuthSignup} />
         <Route path="/" exact component={NewsPosts} />
         <Route path="/trending-news" component={TrendingNews} />
+        <Route path="/add-new-post" component={AddNewPost} />
+        
+        {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
+        {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
 }
         <Redirect to="/" />
       </Switch>
@@ -39,9 +43,16 @@ class App extends Component{
     if ( this.props.isAuthenticated ) {
       routes = (
         <Switch>
+        <Route path="/user-profile-lite" component={UserProfileLite} />
+        <Route path="/trending-news" component={TrendingNews} />
+
+
           {/* <Route path="/checkout" component={Checkout} /> */}
           {/* <Route path="/orders" component={Orders} /> */}
-          {/* <Route path="/logout" component={Logout} /> */}
+          <Route path="/add-new-post" component={AddNewPost} />
+
+      <Route path="/logout" component={logout}/>
+
           <Route path="/" exact component={NewsPosts} />
           <Redirect to="/" />
         </Switch>

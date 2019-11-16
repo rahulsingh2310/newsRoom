@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Alert,Card,CardHeader,Badge } from "shards-react";
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -115,12 +116,6 @@ class Auth extends Component {
         this.props.onAuth(this.state.controls.name.value, this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
     }
 
-    switchAuthModeHandler = () => {
-        this.setState(prevState => {
-            return {isSignup: !prevState.isSignup};
-        });
-    }
-
     routeChange = (props) =>{
         console.log(this.props);
         this.props.history.push('/auth/login');
@@ -154,9 +149,9 @@ class Auth extends Component {
         let errorMessage = null;
 
         if (this.props.error) {
-
+            console.log(this.props.error)
             errorMessage = (
-                <p>{this.props.error}</p>
+                <p style={{height:"9px",color:"Tomato",marginLeft:"10%"}}>*{this.props.error}</p>
             );
         }
 
@@ -166,19 +161,23 @@ class Auth extends Component {
         }
 
         return (
-            <div className={classes.Auth}>
-                
+            <Card className="rounded-9" style={{width:"35%",height:"500px",marginTop:"7%",marginLeft:"30%"}}> 
+        
+                <div className="p-3 mb-2 rounded-top bg-primary text-center text-white" style={{fontSize:"150%"}}>Signup</div>
                 {authRedirect}
 
-                
+                {errorMessage}
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    {errorMessage}
+                    
 
-                    <Button btnType="Success">SUBMIT</Button>
+                    <Button btnType="Success">Register</Button>
                 </form>
-                <button className="btn btn-danger" onClick={this.routeChange}>Login</button>
-            </div>
+                <div className="mt-3 text-center">
+                <p className="float-left" style={{marginLeft:"20%"}}> Already have an account ? </p>    
+                <button className="btn btn-primary float-right" style={{marginRight:"20%"}} onClick={this.routeChange}>Login</button>
+                </div>
+            </Card>
         );
     }
 }
