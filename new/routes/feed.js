@@ -6,7 +6,7 @@ const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 //GET /feed/posts
-router.get("/posts", feedController.getPosts);
+router.get("/posts", isAuth, feedController.getPosts);
 
 //POST /feed/post
 router.post(
@@ -40,6 +40,12 @@ router.put(
 );
 
 router.delete("/post/:postId", isAuth, feedController.deletePost);
+
+router.delete(
+  "/post/deletecomment/:commentId",
+  isAuth,
+  feedController.deleteComment
+);
 
 router.post(
   "/post/comment/:postId",

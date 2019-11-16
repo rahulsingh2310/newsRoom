@@ -45,7 +45,11 @@ const postSchema = new Schema(
         ref: "User",
         required: false
       }
-    ]
+    ],
+    checkrequire: {
+      type: Boolean,
+      default: true
+    }
   },
   { timestamps: true }
 );
