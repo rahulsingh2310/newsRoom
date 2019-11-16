@@ -106,7 +106,7 @@ Discussions.defaultProps = {
         image: require("../../images/avatars/3.jpg"),
         name: "Ravish",
         url: "#",
-        trustfactor:5
+        trustfactor:60
       }
     },
     {
