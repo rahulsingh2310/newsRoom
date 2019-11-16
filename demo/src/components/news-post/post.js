@@ -1,5 +1,7 @@
 import React from "react";
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
+
 
 import {
   Container, Row, Col,
@@ -18,8 +20,10 @@ class posts extends React.Component {
 
   state ={
     name:"",
-    userId:""
+    userId:"",
+    redirect :""
   }
+
   componentDidMount=(state)=>{
       axios.get('http://localhost:8080/user/publicprofile/'+this.props.user )
       .then(response  => {
@@ -29,8 +33,21 @@ class posts extends React.Component {
       });
   }
   
+  goToPost = (Id) =>{
+    console.log(Id);
+    this.setState({redirect:Id})
+    
+  };
 
   render() {
+    const {redirect} = this.state;
+        if (redirect){
+          return <Redirect to={{
+            pathname: '/fullPost',
+            state: { id: this.props.id , name: this.state.name}
+        }}
+  /> ;
+      } 
     return (
     <Container>
       <Row>
@@ -69,7 +86,7 @@ class posts extends React.Component {
 
 
         <div className="ml-5 float-right">
-          <Button tag={Link} to="/news-full-post" >Read more &rarr;</Button>
+          <Button onClick={() => this.goToPost(this.props.id)} >Read more &rarr;</Button>
         </div>
 
     </div>
