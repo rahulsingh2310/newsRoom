@@ -1,7 +1,35 @@
 const User = require("../models/user");
 // const path = require("path");
 
-exports.getUser = (req, res, next) => {
+exports.publicProfile = (req, res, next) => {
+  const userId = req.params.userId;
+  User.findById(userId)
+    .populate({ path: "followers", select: "name" })
+    .populate({ path: "followings", select: "name" })
+    .then(user => {
+      const name = user.name;
+      const followers = user.followers;
+      const followings = user.followings;
+      const data = {
+        name: name,
+        followers: followers,
+        followings: followings
+      };
+      console.log(data);
+      res.status(200).json({
+        message: "Got User",
+        user: data
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.getProfile = (req, res, next) => {
   User.findById(req.userId)
     .populate({ path: "followers", select: "name" })
     .populate({ path: "following", select: "name" })
