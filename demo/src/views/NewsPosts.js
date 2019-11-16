@@ -24,6 +24,7 @@ import { withRouter } from 'react-router-dom';
 
 import Breakingnews from "../components/news-post/breaking-news";
 import { throws } from 'assert';
+import Categoriesbox from '../components/blog/categories';
 
 
 class NewsPosts extends React.Component {
@@ -64,6 +65,8 @@ class NewsPosts extends React.Component {
             {/* Discussions */}
 
             <Col lg="4" md="12" sm="12" className="mb-4">
+              <Categoriesbox />
+              <br></br>
               <Discussions />
             </Col>
         </Row>
