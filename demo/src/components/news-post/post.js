@@ -31,7 +31,7 @@ const posts = (props) => (
 
         <div className="mr-5 ml-3 float-left">
             <i class="material-icons" style={{fontSize:"30px"}}>thumb_up_alt</i>
-            <span>{props.like}</span>
+            <span>{props.likes}</span>
         </div>
 
         <div className="mr-5 float-left">
@@ -57,7 +57,7 @@ const posts = (props) => (
     </div>
   </CardFooter>
       </Card>
-
+      <br></br>
       </Col>
     </Row>
   </Container>

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+
 import {Button,
   Dropdown,
   DropdownToggle,
@@ -10,46 +12,33 @@ import {Button,
   NavLink
 } from "shards-react";
 
-export default class UserActions extends React.Component {
-  constructor(props) {
-    super(props);
+const navigationItems = ( props ) => (  
 
-    this.state = {
-      visible: false
-    };
+  <NavItem >
 
-    this.toggleUserActions = this.toggleUserActions.bind(this);
-  }
+    <div className="text-nowrap px-3 mt-2">
+      <img
+        className="user-avatar rounded-circle mr-2"
+        src={require("./../../../../images/avatars/0.jpg")}
+        alt="User Avatar"
+      />{" "}
+      {!props.isauth ? <Button tag={Link} to="/auth/login" theme="primary">Login</Button> : <Button tag={Link} to="/logout" theme="primary">Logout</Button>}
+     
+      {/* <a tag={Link} to="/auth/login"><span  className="d-none d-md-inline-block">Login/Signup</span></a> */}
+    </div>
+    {/* <Collapse tag={DropdownMenu} right small open={this.state.visible}>
+      <DropdownItem tag={Link} to="/user-profile-lite">
+        <i className="material-icons">&#xE7FD;</i> Profile
+      </DropdownItem>
 
-  toggleUserActions() {
-    this.setState({
-      visible: !this.state.visible
-    });
-  }
+      <DropdownItem divider />
+      <DropdownItem tag={Link} to="/" className="text-danger">
+        <i className="material-icons text-danger">&#xE879;</i> Logout
+      </DropdownItem>
+    </Collapse> */}
+  </NavItem>
+);
 
-  render() {
-    return (
-      <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
-      
-        <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
-          <img
-            className="user-avatar rounded-circle mr-2"
-            src={require("./../../../../images/avatars/0.jpg")}
-            alt="User Avatar"
-          />{" "}
-          <span className="d-none d-md-inline-block">Sierra Brooks</span>
-        </DropdownToggle>
-        <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="/user-profile-lite">
-            <i className="material-icons">&#xE7FD;</i> Profile
-          </DropdownItem>
+export default navigationItems;
 
-          <DropdownItem divider />
-          <DropdownItem tag={Link} to="/" className="text-danger">
-            <i className="material-icons text-danger">&#xE879;</i> Logout
-          </DropdownItem>
-        </Collapse>
-      </NavItem>
-    );
-  }
-}
+

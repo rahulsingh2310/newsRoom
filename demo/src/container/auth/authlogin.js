@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Card,Alert } from "shards-react";
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -141,7 +142,8 @@ class Authlogin extends Component {
 
         if (this.props.error) {
             errorMessage = (
-                <p>{this.props.error.message}</p>
+                <Alert theme="danger">{this.props.error.message}</Alert>
+         
             );
         }
 
@@ -152,19 +154,21 @@ class Authlogin extends Component {
         }
 
         return (
-            <div>
-            <div className={classes.Auth}>
+            <Card className="rounded-9" style={{width:"35%",height:"420px",marginTop:"10%",marginLeft:"30%"}}> 
+        
+            <div className="p-3 mb-2 rounded-top bg-primary text-center text-white" style={{fontSize:"150%"}}>Login</div>
                 {authRedirect}
                 {errorMessage}
 
                 <form onSubmit={this.submitHandler}>
                     {form}
-                    <Button btnType="Success">SUBMIT</Button>
+                    <Button btnType="Success">Login</Button>
                 </form>
-                <button className="btn btn-danger" onClick={this.routeChange}>Signup</button>
-            </div>
-            
-            </div>
+                <div className="mt-5 text-center">
+                <p className="float-left" style={{marginLeft:"20%"}}> Don't have an account ? </p>    
+                <button className="btn btn-primary float-right" style={{marginRight:"20%"}} onClick={this.routeChange}>Signup</button>
+                </div>
+            </Card>
         );
     }
 }
@@ -180,7 +184,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: ( email, password, isSignup ) => dispatch( actions.authlogin( email, password, isSignup ) ),
+        onAuth: ( email, password) => dispatch( actions.authlogin( email, password) ),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     };
 };

@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from "react";
+import React, { Component } from 'react';
 import {
   Container,
   Row,
@@ -11,11 +11,16 @@ import {
   Badge,
   Button
 } from "shards-react";
+import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
+
 
 import PageTitle from "../components/common/PageTitle";
 import Discussions from "./../components/blog/Discussions";
 import Posts from "../components/news-post/post";
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+
 
 import Breakingnews from "../components/news-post/breaking-news";
 
@@ -28,18 +33,23 @@ class NewsPosts extends React.Component {
   componentDidMount(){
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
-      this.setState({news:response.data.posts});
-      console.log(response);
+      this.setState({posts:response.data.posts});
+      // console.log(response);
+
     });
   }
+
+
   render() {
+
     const News_posts = this.state.posts.map(posts => {
-      return <Posts  key={posts._id} title={posts.title} likes={posts.likes} user={posts.user} dislike={posts.dislike} />;
+      return <Posts  key={posts._id} title={posts.title} likes={posts.likes.length} user={posts.creator} dislike={posts.dislikes.length} />;
     });
     
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
+
          <Row noGutters className="page-header py-4">
           <PageTitle sm="4" title="News Posts" className="text-sm-left" />
         </Row>
@@ -47,6 +57,7 @@ class NewsPosts extends React.Component {
         <Row>
             <Col lg="8" md="12">
               {News_posts}
+              {/* <p>{temp} </p> */}
             <br></br>
             </Col>
             {/* Discussions */}
@@ -60,4 +71,15 @@ class NewsPosts extends React.Component {
   }
 }
 
-export default NewsPosts;
+// export default NewsPosts;
+
+const mapStateToProps = state => {
+  const hi = {
+    isAuthenticated: state.auth.token !== null,
+    email : state.auth.email,
+};
+  return hi
+};
+
+
+export default withRouter(connect( mapStateToProps, null)( NewsPosts ));

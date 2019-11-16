@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FormInput } from "shards-react";
 import classes from './Input.css';
 
 const input = ( props ) => {
@@ -12,7 +12,7 @@ const input = ( props ) => {
 
     switch ( props.elementType ) {
         case ( 'input' ):
-            inputElement = <input
+            inputElement = <FormInput size="lg" style={{width:"80%",marginLeft:"10%"}}
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
@@ -40,7 +40,7 @@ const input = ( props ) => {
             );
             break;
         default:
-            inputElement = <input
+            inputElement = <FormInput size="lg" style={{width:"80%",marginLeft:"10%"}}
                 className={inputClasses.join(' ')}
                 {...props.elementConfig}
                 value={props.value}
@@ -48,9 +48,10 @@ const input = ( props ) => {
     }
 
     return (
-        <div className={classes.Input}>
+        <div className={classes.Input} style={{marginBottom:"10px"}}>
             <label className={classes.Label}>{props.label}</label>
             {inputElement}
+            
         </div>
     );
 
