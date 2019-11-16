@@ -11,4 +11,6 @@ router.get("/publicprofile/:userId", profileController.publicProfile); //userId 
 
 router.post("/follow/:userId", isAuth, profileController.follow); //userId who is being followed
 
+router.post("/updateprofile", isAuth, profileController.updateProfile);
+
 module.exports = router;
