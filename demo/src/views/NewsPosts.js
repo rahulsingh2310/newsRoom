@@ -23,6 +23,7 @@ import { withRouter } from 'react-router-dom';
 
 
 import Breakingnews from "../components/news-post/breaking-news";
+import { throws } from 'assert';
 
 
 class NewsPosts extends React.Component {
@@ -38,7 +39,7 @@ class NewsPosts extends React.Component {
 
     });
   }
-
+  
 
   render() {
 

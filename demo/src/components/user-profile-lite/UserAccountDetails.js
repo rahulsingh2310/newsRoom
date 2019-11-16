@@ -31,9 +31,9 @@ class UserAccountDetails extends React.Component{
           Authorization: "Bearer " + localStorage.getItem("token")
       }})
     .then( response => {
-      console.log(response);
+      console.log(response.data.user);
 
-      this.setState({profile:response.data});
+      this.setState({profile:response.data.user});
     })
     .catch(err => {
       console.log(err.response);
@@ -58,7 +58,7 @@ class UserAccountDetails extends React.Component{
                     <FormInput
                       id="feFirstName"
                       placeholder="Name"
-                      
+                      value = {this.state.profile.name}
                       onChange={() => {}}
                     />
                   </Col>
@@ -70,6 +70,8 @@ class UserAccountDetails extends React.Component{
                     <FormInput
                       id="feCity"
                       placeholder="9876543123"
+                      value = {this.state.profile.mobile}
+
                       onChange={() => {}}
                     />
                   </Col>
@@ -81,10 +83,9 @@ class UserAccountDetails extends React.Component{
                     <FormInput
                       type="email"
                       id="feEmail"
-                      placeholder="sierra@example.com"
-              
+                      placeholder="Email"
+                      value = {this.state.profile.email}
                       onChange={() => {}}
-                      autoComplete="email"
                     />
                   </Col>
                   {/* Password */}
@@ -105,7 +106,7 @@ class UserAccountDetails extends React.Component{
                   <FormInput
                     id="feAddress"
                     placeholder="Address"
-                    
+                    value = {this.state.profile.State}
                     onChange={() => {}}
                   />
                 </FormGroup>

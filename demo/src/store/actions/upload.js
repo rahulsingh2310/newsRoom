@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-
+import b64 from '../../utils/images';
 
 export const uploadStart = () => {
     return {
@@ -22,29 +22,37 @@ export const uploadFail = (error) => {
 };
 
 export const uploadPost= (title ,body, image, tag ) =>{
+
+    // console.log(b64(image));
     return dispatch => {
         dispatch(uploadStart());
         const uploadData = {
             title: title,
             content: body,
-            imageUrl: image,
+            // imageUrl: b64(image),
             tag : tag
         };
+        const formData = new FormData();
+        formData.append('title',title);
+        formData.append('content',body);
+        formData.append('imageUrl',image);
+        formData.append('tag',tag);
 
         let url = 'http://localhost:8080/feed/post';
         const config = {
             headers: {
-                // 'content-type': 'multipart/form-data',
-                Authorization: 'Bearer ' + localStorage.getItem('token')
+                // 'content-type': ' multipart/form-data;',
+                Authorization: 'Bearer ' + localStorage.getItem('token'),
+                // "Access-Control-Allow-Origin": "*",
             }
         };
-        axios.post(url, uploadData, config)
+        axios.post(url, formData, config)
         .then(response => {
             console.log(response);
             dispatch(uploadSuccess());
         })
         .catch(err => {
-            console.log(err);
+            console.log(err.response);
             // dispatch(authFail(err.response.data.data[0].msg));
         });
         

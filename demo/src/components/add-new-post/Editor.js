@@ -30,7 +30,7 @@ class Editorbox extends React.Component {
   submitHandler = ( event ) => {
     event.preventDefault();
     this.props.onUpload( localStorage.getItem('titleUpload') 
-    , localStorage.getItem('bodyTitle') , this.state.image, localStorage.getItem('tags')  );
+    , localStorage.getItem('bodyUpload') , this.state.image, localStorage.getItem('tags')  );
   }
 
   

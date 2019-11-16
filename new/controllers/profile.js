@@ -30,7 +30,7 @@ exports.publicProfile = (req, res, next) => {
 };
 
 exports.getProfile = (req, res, next) => {
->>>>>>> a44e8477dd99ecd10be9cefb4372ad20ca6baa40
+
   User.findById(req.userId)
     .populate({ path: "followers", select: "name" })
     .populate({ path: "following", select: "name" })

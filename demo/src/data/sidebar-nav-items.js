@@ -41,15 +41,15 @@ export default function() {
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/user-profile-lite",
     },
-    {
-      title: "Other User Profile",
-      htmlBefore: '<i class="material-icons">person</i>',
-      to: "/other-user-profile-lite",
-    },
-    {
-      title: "Errors",
-      htmlBefore: '<i class="material-icons">error</i>',
-      to: "/errors",
-    }
+    // {
+    // //   title: "Other User Profile",
+    // //   htmlBefore: '<i class="material-icons">person</i>',
+    // //   to: "/other-user-profile-lite",
+    // // },
+    // {
+    //   title: "Errors",
+    //   htmlBefore: '<i class="material-icons">error</i>',
+    //   to: "/errors",
+    // }
   ];
 }
