@@ -15,6 +15,7 @@ import * as actions from './store/actions/index';
 import TrendingNews from "./views/trendingnews"
 import UserProfileLite from "./views/UserProfileLite";
 import logout from "./container/auth/logout";
+import NewsFullPosts from "./views/newsfullpost";
 
 class App extends Component{
 
@@ -31,6 +32,7 @@ class App extends Component{
         <Route path="/" exact component={NewsPosts} />
         <Route path="/trending-news" component={TrendingNews} />
         <Route path="/add-new-post" component={AddNewPost} />
+        <Route path="/fullPost" component={NewsFullPosts}/>
         
         {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
         {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
@@ -45,6 +47,8 @@ class App extends Component{
         <Switch>
         <Route path="/user-profile-lite" component={UserProfileLite} />
         <Route path="/trending-news" component={TrendingNews} />
+        <Route path="/fullPost" component={NewsFullPosts}/>
+
 
 
           {/* <Route path="/checkout" component={Checkout} /> */}

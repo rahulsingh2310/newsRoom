@@ -21,8 +21,17 @@ import FullNewspost from "../components/news-post/fullpost";
 
 
 class NewsFullPosts extends React.Component {
+  constructor(props){
+    super(props);
+}
+
+
+  // componentDidMount =()=>{
+  //   console.log(this.props.location.state.id);
+  // }
   
   render() {
+
     return (
       <Container fluid className="main-content-container px-4">
         {/* Page Header */}
@@ -31,22 +40,16 @@ class NewsFullPosts extends React.Component {
         </Row>
         <Row>
             <Col lg={{ size: 10, offset: 1 }} md="12">
-              <FullNewspost />
+              <FullNewspost id={this.props.location.state.id} creater={this.props.location.state.id}/>
             </Col>
         </Row>
 
 
       </Container>
     );
-  }
+  };
 }
 
-const mapStateToProps = state => {
-  return {
-      isAuthenticated: state.auth.token !== null,
-  };
-};
-
-export default connect( mapStateToProps, null)( NewsFullPosts );
+export default NewsFullPosts;
 
 // export default NewsFullPosts ;
