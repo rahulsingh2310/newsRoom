@@ -61,4 +61,8 @@ router.post(
 router.post("/post/like/:postId", isAuth, feedController.likeHandler);
 router.post("/post/dislike/:postId", isAuth, feedController.dislikeHandler);
 
+router.get("/postss/grammarcheck", feedController.supplyPosts);
+
+router.post("/correctPosts", feedController.correctPosts);
+
 module.exports = router;
