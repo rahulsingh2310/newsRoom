@@ -27,6 +27,27 @@ exports.getPosts = (req, res, next) => {
     });
 };
 
+exports.getbyTag = (req, res, next) => {
+  const tag = req.params.tag;
+  Post.find({ tag: tag })
+    // .populate("creator")
+    .populate({ path: "likes", select: "name" })
+    .populate({ path: "dislikes", select: "name" })
+    .then(posts => {
+      console.log(posts);
+      res.status(200).json({
+        message: "Fetched posts successfully",
+        posts: posts
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
 exports.createPost = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

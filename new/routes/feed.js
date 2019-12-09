@@ -8,6 +8,8 @@ const router = express.Router();
 //GET /feed/posts
 router.get("/posts", feedController.getPosts);
 
+router.get("/posts/:tag", feedController.getbyTag);
+
 //POST /feed/post
 router.post(
   "/post",
@@ -23,7 +25,7 @@ router.post(
   feedController.createPost
 );
 
-router.get("/post/:postId", isAuth, feedController.getPost);
+router.get("/post/:postId",  feedController.getPost);
 
 router.put(
   "/post/:postId",

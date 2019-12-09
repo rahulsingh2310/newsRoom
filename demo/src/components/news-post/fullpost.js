@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import {
   Container, Row, Col,
   Card,
@@ -11,6 +12,28 @@ import {
 } from "shards-react";
 
 class FullNewspost extends React.Component {
+
+  state ={
+    post:{
+    },
+    likeCount:"",
+    dislikeCount:""
+  };
+
+  componentDidMount(){
+    axios.get( 'http://localhost:8080/feed/post/'+ this.props.id)
+    .then( response => {
+      console.log(response);
+      this.setState({post:response.data.post});
+      this.setState({likeCount:response.data.post.likes.length});
+      this.setState({dislikeCount:response.data.post.dislikes.length});
+      console.log(this.state);
+    })
+    .catch(err => {
+      console.log(err);
+  });
+    
+  }
   render() {
     return (
       <Container>
@@ -24,14 +47,35 @@ class FullNewspost extends React.Component {
   
   
         <CardBody>
-          <CardTitle>New Nissan 370Z replacement spotted</CardTitle>
-          <p>Nissan remains committed to a successor to the existing Nissan 370Z, according to the company’s design boss, and now prototypes of the new sportscar have been spotted at the Nurburgring.</p>
-          <p>The current iteration of the iconic Z-car was introduced more than a decade ago - and there has been speculation that it could simply be allowed to die off in the face of ever-tightening regulations on CO2 emissions and fuel efficiency.</p>
-          <p>Early prototypes don't give anything away in terms of how the 370Z successor will look, however, speaking at the Tokyo Motor Show, Nissan’s Senior Vice-President for Design, Alfonso Albaisa, said that the company would “never leave this alone”.
-  </p>
-  <p>
-  When asked if he could envisage a successor to the 370Z, Albaisa replied, “It’s easy to imagine. The Z is the car that democratised sports cars back in the sixties. The current car has been a long time in the dealerships, and so you could imagine Giovanni (Arroba, Nissan’s design boss for electric vehicles) and the designers working on it.</p>
+          <CardTitle>{this.state.post.title}</CardTitle>
+          <p>{this.state.post.content}</p>
+  
       </CardBody>
+      <CardFooter style={{height:"70px"}}>
+      <div className="w-100" >
+
+        <div className="mr-5 ml-3 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>thumb_up_alt</i>
+            <span>{this.state.likeCount}</span>
+        </div>
+
+        <div className="mr-5 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>thumb_down_alt</i>
+            <span>{this.state.dislikeCount}</span>
+        </div>
+
+        <div className="mr-5 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>comment</i>
+            <span>5</span>
+        </div>
+
+        <div className="mr-5 float-left">
+            <i class="material-icons" style={{fontSize:"30px"}}>share</i>
+            <span>3</span>
+        </div>
+
+    </div>
+  </CardFooter>
   
         {/*<CardFooter>Card footer</CardFooter>*/}
       </Card>
@@ -46,3 +90,5 @@ class FullNewspost extends React.Component {
   
   )};
 }
+
+export default FullNewspost;
