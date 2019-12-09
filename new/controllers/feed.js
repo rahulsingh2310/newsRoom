@@ -483,3 +483,46 @@ exports.correctPosts = (req, res, next) => {
     message: "Received and Updated Successfully!!"
   });
 };
+
+exports.supplyInterestedUsers = (req, res, next) => {
+
+  User.find().where("interests").in(["Grammar-Check"])
+  .then(users => {
+    console.log(users);
+    res.status(200).json({
+      users:users
+    });
+  })
+
+};
+
+
+exports.postSubscribers = async (req, res, next) => {
+  name = req.body.name;
+  email = req.body.email;
+  console.log(name);
+  console.log(email);
+  User.findOne({email:email})
+  .then(user=> {
+    if(user){ 
+      console.log(user.subscriptions);
+      console.log(user.interests);
+
+      user.subscriptions.push("Grammar-Check");
+      user.interests.pop();
+      user.save();
+  
+      console.log(user.subscriptions);
+      console.log(user.interests);
+
+      console.log("successss!!");
+      res.status(200).json({
+        message:"Successfully completed!!!"
+      });
+    }
+    
+  })
+  .catch(error => {
+    console.log(error);
+  })
+}
