@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Alert,Card,CardHeader,Badge } from "shards-react";
+import { Alert,Card,CardHeader,Badge,FormCheckbox } from "shards-react";
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
@@ -57,7 +57,8 @@ class Auth extends Component {
                 touched: false
             }
         },
-        isSignup: true
+        isSignup: true,
+        subscriptions:false
     }
 
     componentDidMount() {
@@ -66,6 +67,12 @@ class Auth extends Component {
         }
     }
 
+    handleChange(e, fruit) {
+        const newState = {};
+        newState[fruit] = !this.state[fruit];
+        this.setState({ ...this.state, ...newState });
+      }
+    
 
     checkValidity ( value, rules ) {
         let isValid = true;
@@ -161,7 +168,7 @@ class Auth extends Component {
         }
 
         return (
-            <Card className="rounded-9" style={{width:"35%",height:"500px",marginTop:"7%",marginLeft:"30%"}}> 
+            <Card className="rounded-9" style={{width:"35%",height:"550px",marginTop:"7%",marginLeft:"30%"}}> 
         
                 <div className="p-3 mb-2 rounded-top bg-primary text-center text-white" style={{fontSize:"150%"}}>Signup</div>
                 {authRedirect}
@@ -170,7 +177,11 @@ class Auth extends Component {
                 <form onSubmit={this.submitHandler}>
                     {form}
                     
-
+                    <FormCheckbox className="ml-5"
+                        checked={this.state.subscriptions}
+                        onChange={e => this.handleChange(e, "subscriptions")}>
+                            Are you subscribed to Grammarcheck ?
+                    </FormCheckbox>
                     <Button btnType="Success">Register</Button>
                 </form>
                 <div className="mt-3 text-center">
