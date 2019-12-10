@@ -9,6 +9,7 @@ import AuthSignup from "./container/auth/authsignup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 import NewsPosts from "./views/NewsPosts";
+import MyNewsPosts from "./views/mypost";
 import AddNewPost from "./views/AddNewPost";
 import { DefaultLayout } from "./layouts";
 import * as actions from './store/actions/index';
@@ -38,6 +39,7 @@ class App extends Component{
         <Route path="/news/:id"  component={Tagsfetch}/>
         <Route path="/user/:id" component={OtherUserProfileLite}/>
 
+        <Route path="/myposts" component={MyNewsPosts} />
         {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
         {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
 }
@@ -62,7 +64,7 @@ class App extends Component{
           {/* <Route path="/checkout" component={Checkout} /> */}
           {/* <Route path="/orders" component={Orders} /> */}
           <Route path="/add-new-post" component={AddNewPost} />
-
+          <Route path="/myposts" component={MyNewsPosts} />
       <Route path="/logout" component={logout}/>
       <Route path="/otheruser" component={OtherUserProfileLite} />
           <Route path="/" exact component={NewsPosts} />
