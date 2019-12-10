@@ -40,7 +40,7 @@ class NewsFullPosts extends React.Component {
         </Row>
         <Row>
             <Col lg={{ size: 10, offset: 1 }} md="12">
-              <FullNewspost id={this.props.location.state.id} creater={this.props.location.state.id}/>
+              <FullNewspost id={this.props.match.params} creater="dsd"/>
             </Col>
         </Row>
 

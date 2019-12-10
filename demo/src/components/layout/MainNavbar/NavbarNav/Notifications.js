@@ -20,7 +20,7 @@ export default class Notifications extends React.Component {
 
   render() {
     return (
-      <NavItem className="border-right dropdown notifications">
+      <NavItem className="border-right dropdown notifications" style={{ zIndex: 10 }}>
         <NavLink
           className="nav-link-icon text-center"
           onClick={this.toggleNotifications}
@@ -32,11 +32,12 @@ export default class Notifications extends React.Component {
             </Badge>
           </div>
         </NavLink>
-        <Collapse
+        {/* <Collapse 
           open={this.state.visible}
           className="dropdown-menu dropdown-menu-small"
-        >
-          <DropdownItem>
+          style={{ zIndex: 10 }}
+       >
+          <DropdownItem style={{ zIndex: 10 }}>
             <div className="notification__icon-wrapper">
               <div className="notification__icon">
                 <i className="material-icons">&#xE6E1;</i>
@@ -51,7 +52,7 @@ export default class Notifications extends React.Component {
               </p>
             </div>
           </DropdownItem>
-          <DropdownItem>
+          <DropdownItem style={{ zIndex: 10 }}>
             <div className="notification__icon-wrapper">
               <div className="notification__icon">
                 <i className="material-icons">&#xE8D1;</i>
@@ -66,10 +67,10 @@ export default class Notifications extends React.Component {
               </p>
             </div>
           </DropdownItem>
-          <DropdownItem className="notification__all text-center">
+          <DropdownItem className="notification__all text-center" style={{ zIndex: 10 }}>
             View all Notifications
           </DropdownItem>
-        </Collapse>
+        </Collapse> */}
       </NavItem>
     );
   }

@@ -83,8 +83,8 @@ class UserAccountDetails extends React.Component{
                     <FormInput
                       type="email"
                       id="feEmail"
-                      placeholder="Email"
-                      value = {this.state.profile.email}
+                      
+                      placeholder = {this.state.profile.email}
                       onChange={() => {}}
                     />
                   </Col>

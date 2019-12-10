@@ -16,7 +16,8 @@ import TrendingNews from "./views/trendingnews"
 import UserProfileLite from "./views/UserProfileLite";
 import logout from "./container/auth/logout";
 import NewsFullPosts from "./views/newsfullpost";
-
+import Tagsfetch from "./views/tagsfetch";
+import OtherUserProfileLite from "./views/otheruserprofile";
 class App extends Component{
 
   componentDidMount () {
@@ -27,12 +28,14 @@ class App extends Component{
   render () {
     let routes = (
       <Switch>
+        <Route path="/otheruser" component={OtherUserProfileLite} />
         <Route path="/auth/login" component={Auth} />
         <Route path="/auth/signup" component={AuthSignup} />
         <Route path="/" exact component={NewsPosts} />
         <Route path="/trending-news" component={TrendingNews} />
         <Route path="/add-new-post" component={AddNewPost} />
-        <Route path="/fullPost" component={NewsFullPosts}/>
+        <Route path="/fullPost/:id" component={NewsFullPosts}/>
+        <Route path="/news/:id"  component={Tagsfetch}/>
         
         {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
         {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
@@ -45,9 +48,12 @@ class App extends Component{
     if ( this.props.isAuthenticated ) {
       routes = (
         <Switch>
+          
         <Route path="/user-profile-lite" component={UserProfileLite} />
         <Route path="/trending-news" component={TrendingNews} />
-        <Route path="/fullPost" component={NewsFullPosts}/>
+        <Route path="/fullPost/:id" component={NewsFullPosts}/>
+        <Route path="/fullPost/:id" component={NewsFullPosts}/>
+        <Route path="/news/:id" component={Tagsfetch}/>
 
 
 
@@ -56,7 +62,7 @@ class App extends Component{
           <Route path="/add-new-post" component={AddNewPost} />
 
       <Route path="/logout" component={logout}/>
-
+      <Route path="/otheruser" component={OtherUserProfileLite} />
           <Route path="/" exact component={NewsPosts} />
           <Redirect to="/" />
         </Switch>

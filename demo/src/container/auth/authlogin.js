@@ -141,9 +141,9 @@ class Authlogin extends Component {
         let errorMessage = null;
 
         if (this.props.error) {
+            console.log(this.props.error)
             errorMessage = (
-                <Alert theme="danger">{this.props.error.message}</Alert>
-         
+                <p style={{height:"9px",color:"Tomato",marginLeft:"10%"}}>*{this.props.error}</p>
             );
         }
 

@@ -1,14 +1,15 @@
 import React from "react";
 import ReactQuill from "react-quill";
-import { Card, CardBody, Form, FormInput,Button } from "shards-react";
+import { Card, Row,Col,CardBody, Form, FormInput,Button } from "shards-react";
 import Editor from "./editor-quill"
 import "react-quill/dist/quill.snow.css";
 import "../../assets/quill.css";
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { generateBase64FromImage } from '../../utils/images';
 
-
+import FormCheckboxExample from "./sideCategories";
 
 
 class Editorbox extends React.Component {
@@ -25,6 +26,7 @@ class Editorbox extends React.Component {
   handleImage(e) {
     this.setState({ image: e.target.file });
     // localStorage.setItem("image", e.target.file);
+    
   }
 
   submitHandler = ( event ) => {
@@ -50,8 +52,15 @@ class Editorbox extends React.Component {
           {/* <ReactQuill className="add-new-post__editor mb-1" /> */}
           <Editor placeholder={'Write something...'}/>
           <br></br><br></br>
+          
+          <FormCheckboxExample />
+          <Row>
+            <Col>
           <FormInput type="file" onChange={( event ) => this.handleImage( event)} />
-          <Button pill className="mt-4 float-right">Post</Button>
+          </Col><Col>
+          <Button pill className="float-right">Post</Button>
+          </Col>
+          </Row>
         </Form>
       </CardBody>
     </Card>

@@ -13,7 +13,7 @@ import {
 } from "shards-react";
 
 const Discussions = ({ title, discussions }) => (
-  <Card small className="blog-comments sticky-top" style={{top:"289px",zIndex:"-1"}}>
+  <Card small className="blog-comments sticky-top" style={{top:"289px"}}>
     <CardHeader className="border-bottom">
       <h6 className="m-0">{title}</h6>
     </CardHeader>
@@ -45,7 +45,7 @@ const Discussions = ({ title, discussions }) => (
 
             <div>
 
-            <Button pill > <i class="material-icons">person</i>Follow</Button>
+            <Button pill > <i class="material-icons"   >person</i>Follow</Button>
 
 
             </div>
@@ -57,7 +57,7 @@ const Discussions = ({ title, discussions }) => (
     <CardFooter className="border-top">
       <Row>
         <Col className="text-center view-report">
-          <Button theme="white" type="submit">
+          <Button theme="white" type="submit" onClick={() => console.log('worked')}>
             View All
           </Button>
         </Col>
@@ -106,27 +106,10 @@ Discussions.defaultProps = {
         image: require("../../images/avatars/3.jpg"),
         name: "Ravish",
         url: "#",
-        trustfactor:60
+        trustfactor:6
       }
     },
-    {
-      id: 4,
-      author: {
-        image: require("../../images/avatars/1.jpg"),
-        name: "Piyush",
-        url: "#",
-        trustfactor:85
-      }
-    },
-    {
-      id: 5,
-      author: {
-        image: require("../../images/avatars/1.jpg"),
-        name: "Aditya",
-        url: "#",
-        trustfactor:45
-      }
-    }
+    
 
   ]
 };

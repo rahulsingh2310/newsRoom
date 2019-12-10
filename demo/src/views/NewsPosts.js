@@ -36,7 +36,7 @@ class NewsPosts extends React.Component {
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
       this.setState({posts:response.data.posts});
-      // console.log(response);
+      console.log(response);
 
     });
   }
@@ -45,7 +45,7 @@ class NewsPosts extends React.Component {
   render() {
 
     const News_posts = this.state.posts.map(posts => {
-      return <Posts  key={posts._id} id={posts._id} title={posts.title} likes={posts.likes.length} user={posts.creator} dislike={posts.dislikes.length} />;
+      return <Posts  key={posts._id} id={posts._id} title={posts.title} likes={posts.likes.length} user={posts.creator} dislike={posts.dislikes.length} image={posts.imageUrl} />;
     });
     
     return (

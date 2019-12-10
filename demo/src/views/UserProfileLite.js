@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
-import UserDetails from "../components/user-profile-lite/UserDetails";
+import UserDetails1 from "../components/user-profile-lite/UserDetails1";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 
 const UserProfileLite = () => (
@@ -12,7 +12,7 @@ const UserProfileLite = () => (
     </Row>
     <Row>
       <Col lg="4">
-        <UserDetails />
+        <UserDetails1 />
       </Col>
       <Col lg="8">
         <UserAccountDetails />
