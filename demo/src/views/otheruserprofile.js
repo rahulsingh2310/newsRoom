@@ -6,23 +6,27 @@ import UserDetails from "../components/user-profile-lite/UserDetails";
 import OtherUserAccountDetails from "../components/user-profile-lite/OtherUserAccountDetails";
 
 import Newspost from "../components/news-post/post";
-
+import axios from 'axios';
 
 
 class OtherUserProfileLite extends React.Component {
-  state = {
-    user : []
-
+  state ={
+    data: []
   }
-
- /* componentDidMount(){
-    axios.get( 'http://localhost:8080/auth/user')
+  componentDidMount(){
+    axios.get( `http://localhost:8080/user/publicprofile/${this.props.match.params.id}`)
     .then( response => {
-      this.setState({user:response.data.posts});
-      console.log(response);
+      this.setState({data:response.data.user});
+      console.log(this.state.data);
+
+    })
+    .catch(err => {
+        console.log(this.props.match.params.id);
+        console.log(err);
     });
   }
-*/
+  
+
 
   render () {
     return(

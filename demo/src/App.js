@@ -36,7 +36,8 @@ class App extends Component{
         <Route path="/add-new-post" component={AddNewPost} />
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/news/:id"  component={Tagsfetch}/>
-        
+        <Route path="/user/:id" component={OtherUserProfileLite}/>
+
         {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
         {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
 }
@@ -54,6 +55,7 @@ class App extends Component{
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/news/:id" component={Tagsfetch}/>
+        <Route path="/user/:id" component={OtherUserProfileLite}/>
 
 
 

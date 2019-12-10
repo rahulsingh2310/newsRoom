@@ -11,28 +11,27 @@ import { generateBase64FromImage } from '../../utils/images';
 
 import FormCheckboxExample from "./sideCategories";
 
-
 class Editorbox extends React.Component {
+
   state ={
     title: "",
-    image : "",
-  }
+    data :[],
+  };
 
   handleChange(e) {
     this.setState({ title: e.target.value });
     localStorage.setItem("titleUpload", e.target.value);
   }
 
-  handleImage(e) {
-    this.setState({ image: e.target.file });
-    // localStorage.setItem("image", e.target.file);
-    
+  handleImage(e,prevState) {
+    console.log(this.state.image);
+    this.setState({ data: e.target.files[0] }, () => { console.log('image got set in setstate') });
   }
 
   submitHandler = ( event ) => {
     event.preventDefault();
     this.props.onUpload( localStorage.getItem('titleUpload') 
-    , localStorage.getItem('bodyUpload') , this.state.image, localStorage.getItem('tags')  );
+    , localStorage.getItem('bodyUpload') , this.state.data, localStorage.getItem('tags')  );
   }
 
   

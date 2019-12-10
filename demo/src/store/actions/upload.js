@@ -1,6 +1,5 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import { generateBase64FromImage } from '../../utils/images';
 
 export const uploadStart = () => {
     return {
@@ -23,36 +22,40 @@ export const uploadFail = (error) => {
 
 export const uploadPost= (title ,body, image, tag ) =>{
 
-    // console.log(b64(image));
+    console.log(image);
     return dispatch => {
         dispatch(uploadStart());
         const uploadData = {
             title: title,
             content: body,
-            // imageUrl: b64(image),
+            imageUrl: image,
             tag : tag
         };
         const formData = new FormData();
         formData.append('title',title);
         formData.append('content',body);
-        formData.append('imageUrl',image);
+        formData.append('image',image);
         formData.append('tag',tag);
 
         let url = 'http://localhost:8080/feed/post';
         const config = {
             headers: {
-                // 'content-type': ' multipart/form-data;',
                 Authorization: 'Bearer ' + localStorage.getItem('token'),
-                // "Access-Control-Allow-Origin": "*",
             }
         };
         axios.post(url, formData, config)
         .then(response => {
             console.log(response);
+            localStorage.removeItem('bodyUpload')
+            localStorage.removeItem('tags')
+            localStorage.removeItem('titleUpload')
+
             dispatch(uploadSuccess());
         })
         .catch(err => {
-            console.log(err.response);
+            console.log(err);
+            console.log('hsvdvshdv');
+
             // dispatch(authFail(err.response.data.data[0].msg));
         });
         

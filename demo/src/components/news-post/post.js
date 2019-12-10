@@ -26,6 +26,7 @@ class posts extends React.Component {
     name:"",
     userId:"",
     redirect :"",
+    redirectProfile :"",
     image : "",
     likes_icon:"material-icons-outlined",
     dislikes_icon:"material-icons-outlined"
@@ -40,7 +41,6 @@ class posts extends React.Component {
        this.setState({image:'http://localhost:8080/'+this.props.image});
         this.setState({name:response.data.user.name});
         this.setState({userId:this.props.user});
-        
       });
   }
   
@@ -61,15 +61,26 @@ class posts extends React.Component {
     
   };
 
+  goToProfile = (Id) =>{
+    console.log(Id);
+    this.setState({redirectProfile:Id})
+    
+  };
   render() {
     const {redirect} = this.state;
         if (redirect){
           return <Redirect to={{
             pathname: `/fullPost/${this.state.redirect}`,
-            state: { id: this.props.id , name: this.state.name}
         }}
   /> ;
       } 
+      const {redirectProfile} = this.state;
+      if (redirectProfile){
+        return <Redirect to={{
+          pathname: `/user/${this.state.redirectProfile}`,
+      }}
+/> ;
+    } 
     return (
     <Container>
       <Row>
@@ -80,7 +91,7 @@ class posts extends React.Component {
         <CardTitle>{this.props.title}
           </CardTitle>
          
-          <span className="float-right" style={{fontSize:"15px"}}>7/12/2019 | by {this.state.name}</span> 
+          <button onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>{this.state.name}</span></button> 
       </CardBody>
 
       <CardFooter style={{height:"70px"}}>
