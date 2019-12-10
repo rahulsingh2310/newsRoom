@@ -32,7 +32,7 @@
       <!--Navbar-->
       <nav class="navbar navbar-expand-lg navbar-dark primary-color ">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">Grammar-Check</a>
+        <a class="navbar-brand" href="#"><strong>Grammar-Check</strong></a>
 
         <!-- Collapse button -->
         <button
@@ -88,6 +88,8 @@
                   <!-- Post title -->
                   <h3 class="font-weight-bold mb-3">
                     <strong><%= posts[i].title%></strong>
+                    <strong><%= posts[i].title %>(Original)</strong>
+
                   </h3>
                   <!-- Excerpt -->
                   <p><%= posts[i].originalpost %></p>
@@ -111,6 +113,7 @@
                   <!-- Post title -->
                   <h3 class="font-weight-bold mb-3">
                     <strong><%= posts[i].title %></strong>
+                    <strong><%= posts[i].title %>(Corrected)</strong>
                   </h3>
                   <!-- Excerpt -->
                   <p><%= posts[i].updatedpost %></p>

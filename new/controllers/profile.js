@@ -137,12 +137,25 @@ exports.updateProfile = (req, res, next) => {
         error.statusCode = 403;
         throw error;
       }
-      user.name = name;
-      user.dob = dob;
-      user.mobile = mobile;
-      user.city = city;
-      user.zipcode = zipcode;
-      user.state = state;
+      if(name){
+        user.name = name;
+      };
+      if(dob){
+        user.dob = dob;
+      };
+      if(mobile.length>9){
+        user.mobile = mobile;
+      };
+      if(city){
+        user.city = city;
+      };
+      if(zipcode.length>5){
+        user.zipcode = zipcode;
+      };
+      if(state){
+        user.state = state;
+      }
+      
       return user.save();
     })
     .then(result => {
