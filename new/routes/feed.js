@@ -8,6 +8,8 @@ const router = express.Router();
 //GET /feed/posts
 router.get('/posts', feedController.getPosts);
 
+router.get('/trending', feedController.trendingNews);
+
 router.get('/posts/:tag', feedController.getbyTag);
 
 //POST /feed/post
@@ -68,8 +70,8 @@ router.get('/postss/grammarcheck', feedController.supplyPosts);
 router.post('/correctPosts', feedController.correctPosts);
 router.get('/user_posts/:id', feedController.getbyUser);
 
-router.get("/getInterestedUsers", feedController.supplyInterestedUsers);
+router.get('/getInterestedUsers', feedController.supplyInterestedUsers);
 
-router.post("/postSubscribers", feedController.postSubscribers);
+router.post('/postSubscribers', feedController.postSubscribers);
 
 module.exports = router;
