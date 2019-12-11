@@ -8,25 +8,10 @@ import OtherUserAccountDetails from "../components/user-profile-lite/OtherUserAc
 import Newspost from "../components/news-post/post";
 import axios from 'axios';
 
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class OtherUserProfileLite extends React.Component {
-  state ={
-    data: []
-  }
-  componentDidMount(){
-    axios.get( `http://localhost:8080/user/publicprofile/${this.props.match.params.id}`)
-    .then( response => {
-      this.setState({data:response.data.user});
-      console.log(this.state.data);
-
-    })
-    .catch(err => {
-        console.log(this.props.match.params.id);
-        console.log(err);
-    });
-  }
-  
-
 
   render () {
     return(
@@ -36,7 +21,7 @@ class OtherUserProfileLite extends React.Component {
     </Row>
     <Row>
       <Col lg="4">
-        <UserDetails />
+        <UserDetails id={this.props.match.params.id}/>
       </Col>
       <Col lg="8">
         <OtherUserAccountDetails/>
@@ -50,5 +35,12 @@ class OtherUserProfileLite extends React.Component {
   }
 
 }
+const mapStateToProps = state => {
+  return {
+    email : state.auth.email,
+    userid : state.auth.userId,
+  };
+};
 
-export default OtherUserProfileLite;
+
+export default withRouter(connect( mapStateToProps, null)( OtherUserProfileLite ));

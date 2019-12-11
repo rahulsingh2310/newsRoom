@@ -29,7 +29,6 @@ class App extends Component{
   render () {
     let routes = (
       <Switch>
-        <Route path="/otheruser" component={OtherUserProfileLite} />
         <Route path="/auth/login" component={Auth} />
         <Route path="/auth/signup" component={AuthSignup} />
         <Route path="/" exact component={NewsPosts} />
@@ -55,7 +54,6 @@ class App extends Component{
         <Route path="/user-profile-lite" component={UserProfileLite} />
         <Route path="/trending-news" component={TrendingNews} />
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
-        <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/news/:id" component={Tagsfetch}/>
         <Route path="/user/:id" component={OtherUserProfileLite}/>
 
@@ -66,7 +64,7 @@ class App extends Component{
           <Route path="/add-new-post" component={AddNewPost} />
           <Route path="/myposts" component={MyNewsPosts} />
       <Route path="/logout" component={logout}/>
-      <Route path="/otheruser" component={OtherUserProfileLite} />
+      {/* <Route path="/otheruser" component={OtherUserProfileLite} /> */}
           <Route path="/" exact component={NewsPosts} />
           <Redirect to="/" />
         </Switch>

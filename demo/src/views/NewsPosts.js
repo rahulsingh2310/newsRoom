@@ -33,7 +33,7 @@ class NewsPosts extends React.Component {
     posts : []
   }
   
-  componentDidUpdate(){
+  componentDidMount(){
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
       this.setState({posts:response.data.posts.reverse()});
@@ -50,14 +50,27 @@ class NewsPosts extends React.Component {
   render() {
 
     const News_posts = this.state.posts.map(posts => {
-      return posts.likes.find(o => o._id === this.props.userid) ? <Posts  key={posts._id} id={posts._id}
-       title={posts.title} likes={posts.likes.length} liked={true}
-       user={posts.creator} dislike={posts.dislikes.length}
-        image={posts.imageUrl}
-         /> : <Posts  key={posts._id} id={posts._id}
+      if(posts.likes.find(o => o._id === this.props.userid) != null)
+       {
+        return <Posts  key={posts._id} id={posts._id}
+        title={posts.title} likes={posts.likes.length} liked={true} disliked = {false}
+        user={posts.creator} dislike={posts.dislikes.length}
+         image={posts.imageUrl} 
+          />
+       } 
+       else if(posts.dislikes.find(o => o._id === this.props.userid) != null)
+       {
+       return <Posts  key={posts._id} id={posts._id}
          title={posts.title} likes={posts.likes.length} 
-         user={posts.creator} dislike={posts.dislikes.length} liked={false}
+         user={posts.creator} dislike={posts.dislikes.length} liked={false} disliked={true}
+          image={posts.imageUrl}  />
+      } else{
+        return <Posts  key={posts._id} id={posts._id}
+         title={posts.title} likes={posts.likes.length} 
+         user={posts.creator} dislike={posts.dislikes.length} liked={false} disliked={false}
           image={posts.imageUrl} />
+      }
+        
     });
     
     return (
