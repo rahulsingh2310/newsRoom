@@ -7,6 +7,24 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const Comment = require('../models/comment');
 
+exports.trendingNews = (req, res, next) => {
+	Post.find()
+		.sort([['likenumber', 'desc']])
+		.limit(10)
+		.then(post => {
+			res.status(201).json({
+				message: 'Fetched successfully',
+				post: post
+			});
+		})
+		.catch(err => {
+			if (!err.statusCode) {
+				err.statusCode = 500;
+			}
+			next(err);
+		});
+};
+
 exports.getbyUser = (req, res, next) => {
 	const user = req.params.id;
 	User.findById(user)
@@ -76,7 +94,7 @@ exports.getbyTag = (req, res, next) => {
 		});
 };
 
-exports.createPost = (req, res, next) => {
+exports.createPost = async (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		const error = new Error('Validation failed, entered data is incorrect.');
@@ -94,16 +112,25 @@ exports.createPost = (req, res, next) => {
 	const imageUrl2 = 'images/' + imagename;
 	const title = req.body.title;
 	const content = req.body.content;
+	let checkrequire;
 	let total_post;
 	var T_new;
 	let creator;
 
+	await User.findById(req.userId).then(user => {
+		if (findArray(user.subscriptions, 'Grammar-Check')) {
+			checkrequire = true;
+		} else {
+			checkrequire = false;
+		}
+	});
 	const post = new Post({
 		title: title,
 		content: content,
 		imageUrl: imageUrl2, //change it to imageUrl1 for LINUX or MAC
 		creator: req.userId,
-		tag: req.body.tags
+		tag: req.body.tags,
+		checkrequire: checkrequire
 	});
 	post
 		.save()
@@ -111,8 +138,8 @@ exports.createPost = (req, res, next) => {
 			return User.findById(req.userId);
 		})
 		.then(user => {
-			total_post = user.posts;
-			total_post = countArray(total_post);
+			user.totalpost = user.totalpost + 1;
+			total_post = user.totalpost;
 			const T_old = Number(user.trustfactor);
 			let T_new;
 			T_new = T_old * (total_post - 1) + 0.05;
@@ -233,6 +260,7 @@ exports.deletePost = (req, res, next) => {
 		})
 		.then(user => {
 			user.posts.pull(postId);
+			user.totalpost = Number(user.totalpost) - 1;
 			return user.save();
 		})
 		.then(result => {
@@ -282,12 +310,15 @@ exports.likeHandler = (req, res, next) => {
 			const disliked = findArray(post.dislikes, req.userId);
 			if (!liked) {
 				post.likes.push(req.userId);
+				post.likenumber = post.likenumber + 1;
 				if (disliked) {
 					post.dislikes.pull(req.userId);
+					post.dislikenumber = post.dislikenumber - 1;
 				}
 				flag = true;
 			} else {
 				post.likes.pull(req.userId);
+				post.likenumber = post.likenumber - 1;
 				flag = false;
 			}
 			return post.save();
@@ -342,12 +373,15 @@ exports.dislikeHandler = (req, res, next) => {
 			const disliked = findArray(post.dislikes, req.userId);
 			if (!disliked) {
 				post.dislikes.push(req.userId);
+				post.dislikenumber = post.dislikenumber + 1;
 				if (liked) {
 					post.likes.pull(req.userId);
+					post.likenumber = post.likenumber - 1;
 				}
 				flag = true;
 			} else {
 				post.dislikes.pull(req.userId);
+				post.dislikenumber = post.dislikenumber - 1;
 				flag = false;
 			}
 			return post.save();
@@ -551,44 +585,42 @@ const countArray = list => {
 };
 
 exports.supplyInterestedUsers = (req, res, next) => {
-
-  User.find().where("interests").in(["Grammar-Check"])
-  .then(users => {
-    console.log(users);
-    res.status(200).json({
-      users:users
-    });
-  })
-
+	User.find()
+		.where('interests')
+		.in(['Grammar-Check'])
+		.then(users => {
+			console.log(users);
+			res.status(200).json({
+				users: users
+			});
+		});
 };
 
-
 exports.postSubscribers = async (req, res, next) => {
-  name = req.body.name;
-  email = req.body.email;
-  console.log(name);
-  console.log(email);
-  User.findOne({email:email})
-  .then(user=> {
-    if(user){ 
-      console.log(user.subscriptions);
-      console.log(user.interests);
+	name = req.body.name;
+	email = req.body.email;
+	console.log(name);
+	console.log(email);
+	User.findOne({ email: email })
+		.then(user => {
+			if (user) {
+				console.log(user.subscriptions);
+				console.log(user.interests);
 
-      user.subscriptions.push("Grammar-Check");
-      user.interests.pop();
-      user.save();
-  
-      console.log(user.subscriptions);
-      console.log(user.interests);
+				user.subscriptions.push('Grammar-Check');
+				user.interests.pop();
+				user.save();
 
-      console.log("successss!!");
-      res.status(200).json({
-        message:"Successfully completed!!!"
-      });
-    }
-    
-  })
-  .catch(error => {
-    console.log(error);
-  })
-}
+				console.log(user.subscriptions);
+				console.log(user.interests);
+
+				console.log('successss!!');
+				res.status(200).json({
+					message: 'Successfully completed!!!'
+				});
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
+};

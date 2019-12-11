@@ -155,9 +155,6 @@ exports.updateProfile = (req, res, next) => {
 		});
 };
 
-
-
-
 exports.interested = (req, res, next) => {
 	const userId = req.userId;
 	User.findById(userId)
@@ -237,4 +234,4 @@ exports.followlist = (req, res, next) => {
 			}
 			next(err);
 		});
-	}
+};
