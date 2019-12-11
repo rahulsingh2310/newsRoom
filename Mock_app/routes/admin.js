@@ -8,4 +8,12 @@ router.post("/createPost", adminControllers.createPost);
 
 router.get("/history", adminControllers.getHistory);
 
+
+router.get("/getInterestedUsers", adminControllers.getInterestedUsers);
+
 module.exports = router;
+
+
+
+
+

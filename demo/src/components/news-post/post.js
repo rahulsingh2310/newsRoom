@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 
 import {
@@ -14,6 +16,8 @@ import {
   Button
 } from "shards-react";
 import { Link } from "react-router-dom";
+import * as actions from '../../store/actions/index';
+
 
 
 class posts extends React.Component {
@@ -21,18 +25,36 @@ class posts extends React.Component {
   state ={
     name:"",
     userId:"",
-    redirect :""
+    redirect :"",
+    image : "",
+    likes_icon:"material-icons-outlined",
+    dislikes_icon:"material-icons-outlined"
+
   }
 
   componentDidMount=(state)=>{
       axios.get('http://localhost:8080/user/publicprofile/'+this.props.user )
       .then(response  => {
-       console.log(response);
+      //  console.log(response);
+       console.log(this.props.token_a);
+       this.setState({image:'http://localhost:8080/'+this.props.image});
         this.setState({name:response.data.user.name});
-        this.setState({userId:this.props.user})
+        this.setState({userId:this.props.user});
+        
       });
   }
   
+
+  handleIncrement = () => {
+    this.setState({ likes_icon:"material-icons-round"})
+  }
+
+
+  handleDecrement = () => {
+    this.setState({ dislikes_icon:"material-icons-round"})
+  }
+
+
   goToPost = (Id) =>{
     console.log(Id);
     this.setState({redirect:Id})
@@ -43,7 +65,7 @@ class posts extends React.Component {
     const {redirect} = this.state;
         if (redirect){
           return <Redirect to={{
-            pathname: '/fullPost',
+            pathname: `/fullPost/${this.state.redirect}`,
             state: { id: this.props.id , name: this.state.name}
         }}
   /> ;
@@ -53,34 +75,34 @@ class posts extends React.Component {
       <Row>
         <Col>
     <Card>
-      <CardImg top src="car.jpg" style={{ maxHeight: "330px" }}/>
+      <CardImg top src={this.state.image} style={{ maxHeight: "330px" }}/>
       <CardBody className="border-bottom">
         <CardTitle>{this.props.title}
           </CardTitle>
          
-          <a href=""><span className="float-right" style={{fontSize:"15px"}}>{this.state.name}</span></a> 
+          <span className="float-right" style={{fontSize:"15px"}}>7/12/2019 | by {this.state.name}</span> 
       </CardBody>
 
       <CardFooter style={{height:"70px"}}>
       <div className="w-100" >
 
-        <div className="mr-5 ml-3 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>thumb_up_alt</i>
+      <div className="mr-5 ml-3 float-left" onClick={this.handleIncrement}>
+            <i class={this.state.likes_icon}  style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
             <span>{this.props.likes}</span>
         </div>
 
-        <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>thumb_down_alt</i>
+        <div className="mr-5 float-left" onClick={this.handleDecrement}>
+            <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
             <span>{this.props.dislike}</span>
         </div>
-
+{/* 
         <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>comment</i>
+            <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>comment</i>
             <span>5</span>
-        </div>
+        </div> */}
 
         <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>share</i>
+            <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>share</i>
             <span>3</span>
         </div>
 
@@ -101,4 +123,10 @@ class posts extends React.Component {
   };
 }
 
-export default posts;
+const mapStateToProps = state => {
+  return {
+      token_a : state.auth.userId,
+  };
+};
+
+export default withRouter(connect( mapStateToProps, null )(posts));

@@ -14,17 +14,36 @@ import {
 class FullNewspost extends React.Component {
 
   state ={
+    likes_icon:"material-icons-outlined",
+    dislikes_icon:"material-icons-outlined",
+    comment_icon:"material-icons-outlined",
     post:{
     },
+    image : "",
     likeCount:"",
     dislikeCount:""
   };
 
+  handleIncrement = () => {
+    if(this.state.likes_icon = "material-icons-outlined"){
+    this.setState({ likes_icon:"material-icons-round"});
+    }
+    else{
+      this.setState({ likes_icon:"material-icons-outlined"});
+    }
+  }
+
+
+  handleDecrement = () => {
+    this.setState({ dislikes_icon:"material-icons-round"})
+  }
+
   componentDidMount(){
-    axios.get( 'http://localhost:8080/feed/post/'+ this.props.id)
+    axios.get( `http://localhost:8080/feed/post/${this.props.id.id}`)
     .then( response => {
       console.log(response);
       this.setState({post:response.data.post});
+      this.setState({image:'http://localhost:8080/'+response.data.post.imageUrl});
       this.setState({likeCount:response.data.post.likes.length});
       this.setState({dislikeCount:response.data.post.dislikes.length});
       console.log(this.state);
@@ -35,6 +54,7 @@ class FullNewspost extends React.Component {
     
   }
   render() {
+
     return (
       <Container>
         <Row>
@@ -43,7 +63,7 @@ class FullNewspost extends React.Component {
         {/*<CardHeader>Card header</CardHeader>
         */}
   
-        <CardImg top src="car.jpg"/>
+        <CardImg top src={this.state.image}/>
   
   
         <CardBody>
@@ -52,29 +72,32 @@ class FullNewspost extends React.Component {
   
       </CardBody>
       <CardFooter style={{height:"70px"}}>
-      <div className="w-100" >
-
-        <div className="mr-5 ml-3 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>thumb_up_alt</i>
+       <div className="w-100" >
+ 
+        <div className="mr-5 ml-3 float-left" onClick={this.handleIncrement}>
+            <i class={this.state.likes_icon}  style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
             <span>{this.state.likeCount}</span>
         </div>
+      
 
-        <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>thumb_down_alt</i>
+        <div className="mr-5 float-left" onClick={this.handleDecrement}>
+            <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
             <span>{this.state.dislikeCount}</span>
         </div>
 
-        <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>comment</i>
+        {/* <div className="mr-5 float-left">
+            <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>comment</i>
             <span>5</span>
         </div>
+ */}
 
         <div className="mr-5 float-left">
-            <i class="material-icons" style={{fontSize:"30px"}}>share</i>
+            <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>share</i>
             <span>3</span>
         </div>
 
-    </div>
+    </div> 
+    
   </CardFooter>
   
         {/*<CardFooter>Card footer</CardFooter>*/}

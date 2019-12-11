@@ -19,15 +19,10 @@ const AddNewPost = () => (
 
     <Row>
       {/* Editor */}
-      <Col lg="9" md="12">
+      <Col lg={{ size: 10, offset: 1 }} md="12">
         <Editorbox />
       </Col>
 
-      {/* Sidebar Widgets */}
-      <Col lg="3" md="12">
-        <FormCheckboxExample />
-
-      </Col>
     </Row>
   </Container>
 );

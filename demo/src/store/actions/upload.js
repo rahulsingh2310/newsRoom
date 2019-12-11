@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import b64 from '../../utils/images';
+import { generateBase64FromImage } from '../../utils/images';
 
 export const uploadStart = () => {
     return {

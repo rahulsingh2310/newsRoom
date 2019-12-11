@@ -68,4 +68,8 @@ router.get('/postss/grammarcheck', feedController.supplyPosts);
 router.post('/correctPosts', feedController.correctPosts);
 router.get('/user_posts/:id', feedController.getbyUser);
 
+router.get("/getInterestedUsers", feedController.supplyInterestedUsers);
+
+router.post("/postSubscribers", feedController.postSubscribers);
+
 module.exports = router;

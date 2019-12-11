@@ -38,16 +38,7 @@ class TrendingNews extends Component {
              {/* Editor */}
              
              {trending }
-             {trending }
-             {trending }
-             {trending }
-             {trending }
-             {trending }
-             {trending }
-             {trending }
-             {trending }
              
-      
            </Row>
        </Container>     
     );
