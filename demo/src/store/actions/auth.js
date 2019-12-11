@@ -78,13 +78,14 @@ export const authlogin = (email, password) => {
     };
 };
 
-export const authsignup = (name, email, password) => {
+export const authsignup = (name, email, password, subscribe) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
             name : name,
             email: email,
             password: password,
+            subscriptions : subscribe,
             returnSecureToken: true
         };
         let url = 'http://localhost:8080/auth/signup';

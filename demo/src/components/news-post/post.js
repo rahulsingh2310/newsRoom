@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import altern from './car.jpg';
 
 import {
   Container, Row, Col,
@@ -37,15 +38,17 @@ class posts extends React.Component {
       axios.get('http://localhost:8080/user/publicprofile/'+this.props.user )
       .then(response  => {
       //  console.log(response);
-       console.log(this.props.token_a);
+      //  console.log(this.props.token_a);
        this.setState({image:'http://localhost:8080/'+this.props.image});
         this.setState({name:response.data.user.name});
         this.setState({userId:this.props.user});
+
       });
   }
   
 
   handleIncrement = () => {
+
     this.setState({ likes_icon:"material-icons-round"})
   }
 
@@ -53,7 +56,24 @@ class posts extends React.Component {
   handleDecrement = () => {
     this.setState({ dislikes_icon:"material-icons-round"})
   }
+   
+  likehandler = () => {
+    axios({ method:'post',url:'http://localhost:8080/feed/post/like/'+this.props.id,
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+      .then(response  => {
+        console.log('likeddd');
+        console.log(this.props.liked);
 
+        console.log(response);
+        if(this.props.liked){
+          this.setState({
+            likes_icon:"material-icons-round"
+          })
+        }
+      }); 
+  }
 
   goToPost = (Id) =>{
     console.log(Id);
@@ -86,36 +106,40 @@ class posts extends React.Component {
       <Row>
         <Col>
     <Card>
-      <CardImg top src={this.state.image} style={{ maxHeight: "330px" }}/>
+      <CardImg top src={this.state.image} alt={altern} style={{ maxHeight: "330px" }}/>
       <CardBody className="border-bottom">
         <CardTitle>{this.props.title}
           </CardTitle>
          
-          <button onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>{this.state.name}</span></button> 
+          <Button outline pill className="ml-5 float-right" onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>By {this.state.name}</span></Button> 
       </CardBody>
 
       <CardFooter style={{height:"70px"}}>
       <div className="w-100" >
-
-      <div className="mr-5 ml-3 float-left" onClick={this.handleIncrement}>
-            <i class={this.state.likes_icon}  style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
+      { this.props.token_a ? <Button outline pill theme="light" className="mr-3 ml-2 float-left" onClick={this.likehandler}>
+            <i class={this.props.liked ? "material-icons-round" : "material-icons-outlined" } style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
             <span>{this.props.likes}</span>
-        </div>
+        </Button> 
+        : <div></div> }
+      
+        { this.props.token_a
+        ? <div><Button outline pill theme="light" className="mr-3 float-left" onClick={this.handleDecrement}>
+        <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
+        <span>{this.props.dislike}</span>
+    </Button></div>
+        : <div></div>
+      }
 
-        <div className="mr-5 float-left" onClick={this.handleDecrement}>
-            <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
-            <span>{this.props.dislike}</span>
-        </div>
 {/* 
         <div className="mr-5 float-left">
             <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>comment</i>
             <span>5</span>
         </div> */}
 
-        <div className="mr-5 float-left">
+        <Button outline pill theme="light" className="mr-5 float-left">
             <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>share</i>
             <span>3</span>
-        </div>
+        </Button>
 
 
         <div className="ml-5 float-right">

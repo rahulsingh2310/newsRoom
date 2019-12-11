@@ -8,7 +8,8 @@ import axios from 'axios';
 
 class TrendingNews extends Component {
   state = {
-    news : []
+    news : [],
+    image : "",
 
   }
 
@@ -16,13 +17,13 @@ class TrendingNews extends Component {
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
       this.setState({news:response.data.posts});
-      console.log(response);
+      // console.log(response);
     });
   }
 
   render () {
     const trending = this.state.news.map(tnews => {
-      return <Trending  key={tnews._id} title={tnews.title} body={tnews.content} />;
+      return <Trending  key={tnews._id} title={tnews.title} body={tnews.content} image={tnews.imageUrl} />;
     });
     return (
       // <div>

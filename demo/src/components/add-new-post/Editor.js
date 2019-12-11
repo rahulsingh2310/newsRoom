@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom';
 import { generateBase64FromImage } from '../../utils/images';
 
 import FormCheckboxExample from "./sideCategories";
+import BasicFormTextarea from "./Editornew";
 
 class Editorbox extends React.Component {
 
@@ -49,15 +50,15 @@ class Editorbox extends React.Component {
           placeholder="Your Post Title" 
           onChange={( event ) => this.handleChange( event)} />
           {/* <ReactQuill className="add-new-post__editor mb-1" /> */}
-          <Editor placeholder={'Write something...'}/>
-          <br></br><br></br>
+          <BasicFormTextarea/>
+          
           
           <FormCheckboxExample />
           <Row>
             <Col>
           <FormInput type="file" onChange={( event ) => this.handleImage( event)} />
           </Col><Col>
-          <Button pill className="float-right">Post</Button>
+          <Button pill className="float-right" >Post</Button>
           </Col>
           </Row>
         </Form>
