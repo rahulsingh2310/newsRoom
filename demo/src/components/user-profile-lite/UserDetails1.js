@@ -10,16 +10,33 @@ import {
 } from "shards-react";
 
 
-
+import axios from 'axios';
 
 class UserDetails1 extends React.Component{
- constructor(props) {
-     super(props);
-     this.state = {
-       
+  state = {
+      profile:{
+
+      },
+      followers:""
      };
 
-   }
+   componentDidMount(){
+
+    axios({ method:'get',url:'http://localhost:8080/user/profile',
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+    .then( response => {
+      console.log(response.data.user);
+
+      this.setState({profile:response.data.user});
+      this.setState({followers: response.data.user.followers.length});
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+  }; 
+
 
 
   render() {
@@ -30,14 +47,14 @@ class UserDetails1 extends React.Component{
         <img
           className="rounded-circle"
           src={this.props.userDetails.avatar}
-          alt={this.props.userDetails.name}
+          alt={this.state.profile.name}
           width="110"
         />
       </div>
-      <h4 className="mb-0">{this.props.userDetails.name}</h4>
-      <span className="text-muted d-block mb-2">{this.props.userDetails.jobTitle}</span>
+      <h4 className="mb-0">{this.state.profile.name}</h4>
+      <span className="text-muted d-block mb-2">{this.state.profile.status}</span>
       <span className="text-muted d-block mb-2"><i className="material-icons mr-1">rss_feed</i>
-       Followed by 149 people</span>
+       Followers {this.state.followers}</span>
      
     </CardHeader>
     <ListGroup flush>
@@ -45,7 +62,7 @@ class UserDetails1 extends React.Component{
         <strong className="text-muted d-block mb-2">
           {this.props.userDetails.metaTitle}
         </strong>
-        <span>{this.props.userDetails.metaValue}
+        <span>{this.state.profile.description}
         </span>
       </ListGroupItem>
     </ListGroup>
@@ -55,12 +72,12 @@ class UserDetails1 extends React.Component{
 }
 
 
-UserDetails1.propTypes = {
-  /**
-   * The user details object.
-   */
-  userDetails: PropTypes.object
-};
+// UserDetails1.propTypes = {
+//   /**
+//    * The user details object.
+//    */
+//   userDetails: PropTypes.object
+// };
 
 UserDetails1.defaultProps = {
   userDetails: {
@@ -72,5 +89,6 @@ UserDetails1.defaultProps = {
       "Chris Messina has spent over 15 years  living on the edge of social technology."
   }
 };
+
 
 export default UserDetails1;

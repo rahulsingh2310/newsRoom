@@ -25,6 +25,7 @@ import { withRouter } from 'react-router-dom';
 import Breakingnews from "../components/news-post/breaking-news";
 import { throws } from 'assert';
 import Categoriesbox from '../components/blog/categories';
+import { stat } from 'fs';
 
 
 class NewsPosts extends React.Component {
@@ -32,12 +33,16 @@ class NewsPosts extends React.Component {
     posts : []
   }
   
-  componentDidMount(){
+  componentDidUpdate(){
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
-      this.setState({posts:response.data.posts});
-      console.log(response);
-
+      this.setState({posts:response.data.posts.reverse()});
+      // [...this.state.posts].reverse().map(createListItem, this);
+      // console.log('dshdvhsvdvsd')
+      // this.state.posts.reverse();
+      console.log(this.state.posts);
+      console.log(this.props.userid);
+      // const like = response.data.posts.
     });
   }
   
@@ -45,7 +50,14 @@ class NewsPosts extends React.Component {
   render() {
 
     const News_posts = this.state.posts.map(posts => {
-      return <Posts  key={posts._id} id={posts._id} title={posts.title} likes={posts.likes.length} user={posts.creator} dislike={posts.dislikes.length} image={posts.imageUrl} />;
+      return posts.likes.find(o => o._id === this.props.userid) ? <Posts  key={posts._id} id={posts._id}
+       title={posts.title} likes={posts.likes.length} liked={true}
+       user={posts.creator} dislike={posts.dislikes.length}
+        image={posts.imageUrl}
+         /> : <Posts  key={posts._id} id={posts._id}
+         title={posts.title} likes={posts.likes.length} 
+         user={posts.creator} dislike={posts.dislikes.length} liked={false}
+          image={posts.imageUrl} />
     });
     
     return (
@@ -67,7 +79,7 @@ class NewsPosts extends React.Component {
             <Col lg="4" md="12" sm="12" className="mb-4">
               <Categoriesbox />
               <br></br>
-              <Discussions />
+               <Discussions /> 
             </Col>
         </Row>
       </Container>
@@ -75,14 +87,11 @@ class NewsPosts extends React.Component {
   }
 }
 
-// export default NewsPosts;
-
 const mapStateToProps = state => {
-  const hi = {
-    isAuthenticated: state.auth.token !== null,
+  return {
     email : state.auth.email,
-};
-  return hi
+    userid : state.auth.userId,
+  };
 };
 
 

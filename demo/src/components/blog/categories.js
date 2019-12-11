@@ -45,13 +45,14 @@ class Categoriesbox extends React.Component {
     <CardBody className="p-0"> 
     
     <Button pill onClick={() => this.goToPost('Politics')} className="mt-3 ml-2" theme="secondary" value="Politics">Politics</Button>
-    <Button pill className="mt-3 ml-2" theme="secondary" value="Technology" onClick={() => console.log('worked')}>Technology</Button>
-    <Button pill className="mt-3 ml-2 " theme="secondary" value="Business" onClick={() => alert('hello')}>Business</Button>
+    <Button pill className="mt-3 ml-2" theme="secondary" value="Technology" onClick={() => this.goToPost('technology')}>Technology</Button>
+    <Button pill className="mt-3 ml-2 " theme="secondary" value="Business" onClick={() => this.goToPost('business')}>Business</Button>
    
     <Button onClick={() => this.goToPost('sports')} value="Sports" pill className="mt-3 ml-2"theme="secondary">Sports</Button>
-    <Button pill className="mt-3 mb-3" style={{marginLeft:"9%"}} value="Entertainment" theme="secondary">Entertainment</Button>
-    <Button pill className="mt-3 mb-3" style={{marginLeft:"3%"}} value="Start-up" theme="secondary">Start-up</Button>
-    <Button pill className="mt-3 mb-3" style={{marginLeft:"3%"}} value="National" theme="secondary">National</Button>
+    <Button pill className="mt-3 mb-3" style={{marginLeft:"9%"}} value="India" theme="secondary" onClick={() => this.goToPost('india')}>India</Button>
+    <Button pill className="mt-3 mb-3" style={{marginLeft:"3%"}} value="Entertainment" theme="secondary" onClick={() => this.goToPost('entertainment')}>Entertainment</Button>
+    <Button pill className="mt-3 mb-3" style={{marginLeft:"3%"}} value="International" theme="secondary" onClick={() => this.goToPost('international')}>International</Button>
+    
     </CardBody>
 
   </Card>

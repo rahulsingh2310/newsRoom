@@ -10,29 +10,29 @@ import { withRouter } from 'react-router-dom';
 import { generateBase64FromImage } from '../../utils/images';
 
 import FormCheckboxExample from "./sideCategories";
-
+import BasicFormTextarea from "./Editornew";
 
 class Editorbox extends React.Component {
+
   state ={
     title: "",
-    image : "",
-  }
+    data :[],
+  };
 
   handleChange(e) {
     this.setState({ title: e.target.value });
     localStorage.setItem("titleUpload", e.target.value);
   }
 
-  handleImage(e) {
-    this.setState({ image: e.target.file });
-    // localStorage.setItem("image", e.target.file);
-    
+  handleImage(e,prevState) {
+    console.log(this.state.image);
+    this.setState({ data: e.target.files[0] }, () => { console.log('image got set in setstate') });
   }
 
   submitHandler = ( event ) => {
     event.preventDefault();
     this.props.onUpload( localStorage.getItem('titleUpload') 
-    , localStorage.getItem('bodyUpload') , this.state.image, localStorage.getItem('tags')  );
+    , localStorage.getItem('bodyUpload') , this.state.data, localStorage.getItem('tags')  );
   }
 
   
@@ -50,15 +50,15 @@ class Editorbox extends React.Component {
           placeholder="Your Post Title" 
           onChange={( event ) => this.handleChange( event)} />
           {/* <ReactQuill className="add-new-post__editor mb-1" /> */}
-          <Editor placeholder={'Write something...'}/>
-          <br></br><br></br>
+          <BasicFormTextarea/>
+          
           
           <FormCheckboxExample />
           <Row>
             <Col>
           <FormInput type="file" onChange={( event ) => this.handleImage( event)} />
           </Col><Col>
-          <Button pill className="float-right">Post</Button>
+          <Button pill className="float-right" >Post</Button>
           </Col>
           </Row>
         </Form>

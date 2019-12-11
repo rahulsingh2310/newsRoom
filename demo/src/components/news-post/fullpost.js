@@ -69,21 +69,22 @@ class FullNewspost extends React.Component {
         <CardBody>
           <CardTitle>{this.state.post.title}</CardTitle>
           <p>{this.state.post.content}</p>
-  
+          <Button outline pill className="ml-5 float-right" onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>By {this.state.name}</span></Button> 
+     
       </CardBody>
       <CardFooter style={{height:"70px"}}>
        <div className="w-100" >
  
-        <div className="mr-5 ml-3 float-left" onClick={this.handleIncrement}>
+        <Button outline pill theme="light" className="mr-5 ml-3 float-left" onClick={this.handleIncrement}>
             <i class={this.state.likes_icon}  style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
             <span>{this.state.likeCount}</span>
-        </div>
+        </Button>
       
 
-        <div className="mr-5 float-left" onClick={this.handleDecrement}>
+        <Button outline pill theme="light" className="mr-5 float-left" onClick={this.handleDecrement}>
             <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
             <span>{this.state.dislikeCount}</span>
-        </div>
+        </Button>
 
         {/* <div className="mr-5 float-left">
             <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>comment</i>
@@ -91,10 +92,10 @@ class FullNewspost extends React.Component {
         </div>
  */}
 
-        <div className="mr-5 float-left">
+        <Button outline pill theme="light" className="mr-5 float-left">
             <i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>share</i>
             <span>3</span>
-        </div>
+        </Button>
 
     </div> 
     
