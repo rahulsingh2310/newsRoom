@@ -10,10 +10,16 @@ exports.publicProfile = (req, res, next) => {
 			const name = user.name;
 			const followers = user.followers;
 			const followings = user.followings;
+			const description = user.description;
+			const trustfactor = user.trustfactor;
+			const email = user.email;
 			const data = {
 				name: name,
 				followers: followers,
-				followings: followings
+				followings: followings,
+				description: description,
+				trustfactor: trustfactor,
+				email: email
 			};
 			console.log(data);
 			res.status(200).json({
