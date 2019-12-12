@@ -14,7 +14,7 @@ class RecommendedNews extends Component {
   }
 
   componentDidMount(){
-    axios.get( 'http://localhost:8080/feed/trending')
+    axios.get( 'http://localhost:8080/feed/newstorecommend')
     .then( response => {
       console.log(response);
       this.setState({news:response.data.post});
