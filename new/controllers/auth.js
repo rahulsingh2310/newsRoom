@@ -106,6 +106,7 @@ exports.login = (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 	let loadedUser;
+	let subscribed;
 	User.findOne({ email: email })
 		.then(user => {
 			if (!user) {
@@ -122,6 +123,11 @@ exports.login = (req, res, next) => {
 				error.statusCode = 401;
 				throw error;
 			}
+			if (loadedUser.subscriptions == 'Grammar-Check') {
+				subscribed = true;
+			} else {
+				subscribed = false;
+			}
 			const token = jwt.sign(
 				{
 					email: loadedUser.email,
@@ -130,7 +136,13 @@ exports.login = (req, res, next) => {
 				'somesupersecretsecret',
 				{ expiresIn: '2h' }
 			);
-			res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+			res
+				.status(200)
+				.json({
+					token: token,
+					userId: loadedUser._id.toString(),
+					subscriptions: subscribed
+				});
 		})
 		.catch(err => {
 			if (!err.statusCode) {
