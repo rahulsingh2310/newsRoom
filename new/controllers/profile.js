@@ -318,7 +318,7 @@ exports.newsTorecommend = (req, res, next) => {
 			const following = user.followings;
 			for (var val of following.values()) {
 				await Post.find({ creator: val })
-					.sort([['timestamp', 'desc']])
+					.sort([['timestamps', 'desc']])
 					.limit(5)
 					.then(post => {
 						postArray.push(...post);
