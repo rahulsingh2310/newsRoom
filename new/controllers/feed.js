@@ -293,6 +293,10 @@ exports.likeHandler = (req, res, next) => {
 	let flag;
 	let currentPost;
 	let disliked;
+	let t_like;
+	let t_dislike = 0;
+	let T_new;
+	let postuser;
 	Post.findById(postId)
 		.then(post => {
 			if (!post) {
@@ -311,14 +315,17 @@ exports.likeHandler = (req, res, next) => {
 			if (!liked) {
 				post.likes.push(req.userId);
 				post.likenumber = post.likenumber + 1;
+				t_like = post.likenumber;
 				if (disliked) {
 					post.dislikes.pull(req.userId);
 					post.dislikenumber = post.dislikenumber - 1;
+					t_dislike = post.dislikenumber;
 				}
 				flag = true;
 			} else {
 				post.likes.pull(req.userId);
 				post.likenumber = post.likenumber - 1;
+				t_like = post.likenumber;
 				flag = false;
 			}
 			return post.save();
@@ -326,16 +333,34 @@ exports.likeHandler = (req, res, next) => {
 		.then(result => {
 			return User.findById(req.userId);
 		})
-		.then(user => {
+		.then(async user => {
 			if (flag) {
 				user.likedposts.push(currentPost);
+				Post.findById(currentPost)
+				.then(post=>{
+					postuser = post.creator;
+					return postuser;
+				})
+				.then(postuser=>{
+					T_new = await trustFactor_React(
+						postuser,
+						user.totalpost,
+						t_like,
+						t_dislike,
+						0
+					);
+				});
+				
+				console.log('11111111');
+				console.log(T_new);
 				if (disliked) {
 					user.dislikedposts.pull(currentPost);
 				}
 			} else {
 				user.likedposts.pull(currentPost);
 			}
-			user.save();
+			user.trustfactor = T_new;
+			return user.save();
 		})
 		.then(result => {
 			res.status(201).json({
@@ -623,4 +648,67 @@ exports.postSubscribers = async (req, res, next) => {
 		.catch(error => {
 			console.log(error);
 		});
+};
+
+const trustFactor_React = async (
+	user_id,
+	total_post,
+	likes,
+	dislikes,
+	flag
+) => {
+	console.log(user_id, total_post, likes, dislikes);
+	var T_old;
+	await User.findById(user_id).then(user => {
+		console.log(user);
+		console.log(user.trustfactor);
+		console.log('aaaaaaa');
+		T_old = Number(user.trustfactor);
+		console.log('@@@@@@@');
+		console.log(T_old);
+		console.log('hjbjbj');
+	});
+
+	let T_new;
+	const v1 = (likes + 1) / (likes + dislikes + 2);
+	const v2 = likes / (likes + dislikes + 1);
+	const v3 = (likes + 1) / (likes + dislikes + 1);
+	if (flag == 0) {
+		if (likes < 10) {
+			T_new = T_old * total_post + (v1 - v2) * 0.2;
+		} else if (likes == 10) {
+			T_new = T_old * total_post + (v1 * 0.4 - v2 * 0.2);
+		} else if (likes < 20) {
+			T_new = T_old * total_post + (v1 - v2) * 0.4;
+		} else if (likes == 20) {
+			T_new = T_old * total_post + (v1 * 0.6 - v2 * 0.4);
+		} else if (likes < 30) {
+			T_new = T_old * total_post + (v1 - v2) * 0.6;
+		} else if (likes == 30) {
+			T_new = T_old * total_post + (v1 * 0.8 - v2 * 0.6);
+		} else if (likes < 40) {
+			T_new = T_old * total_post + (v1 - v2) * 0.8;
+		} else if (likes == 40) {
+			T_new = T_old * total_post + (v1 * 1.0 - v2 * 0.8);
+		} else {
+			T_new = T_old * total_post + (v1 - v2);
+		}
+	}
+	if (flag == 1) {
+		if (likes <= 10) {
+			T_new = T_old * total_post + (v1 - v3) * 0.2;
+		} else if (likes <= 20) {
+			T_new = T_old * total_post + (v1 - v3) * 0.4;
+		} else if (likes <= 30) {
+			T_new = T_old * total_post + (v1 - v3) * 0.6;
+		} else if (likes <= 40) {
+			T_new = T_old * total_post + (v1 - v3) * 0.8;
+		} else {
+			T_new = T_old * total_post + (v1 - v3);
+		}
+	}
+	T_new = T_new / total_post;
+	console.log(total_post / 3);
+	console.log(T_new);
+	return T_new;
 };

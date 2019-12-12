@@ -30,6 +30,7 @@ exports.signup = (req, res, next) => {
 	const password = req.body.password;
 	var subscriptions = req.body.subscriptions;
 	var description = req.body.description;
+	var trustfactor = '0.0';
 	// const dob = req.body.dob;
 	// const mobile = req.body.mobile;
 	// const city = req.body.city;
@@ -41,7 +42,8 @@ exports.signup = (req, res, next) => {
 			const user = new User({
 				email: email,
 				password: hashedPw,
-				name: name
+				name: name,
+				trustfactor: trustfactor
 
 				// dob: dob,
 				// mobile: mobile,
