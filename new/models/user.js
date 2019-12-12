@@ -107,6 +107,10 @@ const userSchema = new Schema({
 	trustfactor: {
 		type: String,
 		required: false
+	},
+	description:{
+		type:String,
+		required:false
 	}
 });
 

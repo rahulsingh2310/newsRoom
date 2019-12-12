@@ -337,11 +337,11 @@ exports.likeHandler = (req, res, next) => {
 			if (flag) {
 				user.likedposts.push(currentPost);
 				Post.findById(currentPost)
-				.then(post=>{
+				.then(  post=>{
 					postuser = post.creator;
 					return postuser;
 				})
-				.then(postuser=>{
+				.then(async postuser=>{
 					T_new = await trustFactor_React(
 						postuser,
 						user.totalpost,

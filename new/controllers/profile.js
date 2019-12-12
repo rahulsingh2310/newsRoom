@@ -129,6 +129,7 @@ exports.updateProfile = (req, res, next) => {
 	const city = req.body.city;
 	const zipcode = req.body.zipcode;
 	const state = req.body.state;
+	const description = req.body.description;
 
 	User.findById(userId)
 		.then(user => {
@@ -148,6 +149,7 @@ exports.updateProfile = (req, res, next) => {
 			user.city = city;
 			user.zipcode = zipcode;
 			user.state = state;
+			user.description = description;
 			return user.save();
 		})
 		.then(result => {
