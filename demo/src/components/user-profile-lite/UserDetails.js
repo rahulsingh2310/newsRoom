@@ -8,31 +8,72 @@ import {
   ListGroupItem,
   Progress
 } from "shards-react";
-
-
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 class UserDetails extends React.Component{
- constructor(props) {
-     super(props);
-     this.state = {
-       follow_logo:"person_add",
+     state ={
+      name : "",
+      follower : "",
+      following : "",
+      id : "",
+      follow : false ,
+      follow_logo:"person_add",
        follow_title:"Follow",
-       follow:true
-     };
+    }
 
-     // This binding is necessary to make `this` work in the callback
-     this.handleClick = this.handleClick.bind(this);
-   }
+    componentDidMount(){
+      axios.get( 'http://localhost:8080/user/publicprofile/'+this.props.id)
+      .then( response => {
+        console.log(response);
+        // console.log(this.props.match.params);
+        this.setState({name:response.data.user.name});
+        this.setState({follower: response.data.user.followers.length});
+        this.setState({following: response.data.user.followings.length});
+        this.setState({id: this.props.id});
+        console.log(this.state.id);
+      if (response.data.user.followers.find(o => o._id === this.props.userid) != null ){
+          console.log('followed hai');
+          this.setState({follow : true});
+        }
+        else{
+          this.setState({follow:false});
+        }
+        console.log(this.state.follow);
 
-   handleClick() {
-     this.setState(state => ({
-       follow_logo:"person",
-       follow_title:"Followed",
-       follow:true
+      })
+      .catch(err => {
+          console.log(err);
+      });
+    };
 
-     }));
-   }
+   handleClick = () => {
+    axios({ method:'post',url:'http://localhost:8080/user/follow/'+this.state.id,
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+    .then( response => {
+      // console.log(response);
+      // console.log(this.state.follow);
+      this.componentDidMount();
+      console.log(this.state.follow);
+      if(this.state.follow === true){
+        this.setState({follow_title:"Follow"});
+      }
+      else {
+        this.setState({follow_title:"unFollow"});
+        
+
+      }
+
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+
+  }; 
 
   render() {
     return (
@@ -46,10 +87,10 @@ class UserDetails extends React.Component{
           width="110"
         />
       </div>
-      <h4 className="mb-0">{this.props.userDetails.name}</h4>
+      <h4 className="mb-0">{this.state.name}</h4>
       <span className="text-muted d-block mb-2">{this.props.userDetails.jobTitle}</span>
       <span className="text-muted d-block mb-2"><i className="material-icons mr-1">rss_feed</i>
-       Followed by 149 people</span>
+       Followed by {this.state.follower}</span>
       <Button pill outline size="sm" className="mb-2" onClick={this.handleClick}>
         <i className="material-icons mr-1">{this.state.follow_logo}</i>{this.state.follow_title}
       </Button>
@@ -86,5 +127,11 @@ UserDetails.defaultProps = {
       "Chris Messina has spent over 15 years  living on the edge of social technology."
   }
 };
+const mapStateToProps = state => {
+  return {
+    email : state.auth.email,
+    userid : state.auth.userId,
+  };
+};
+export default withRouter(connect( mapStateToProps, null)( UserDetails ));
 
-export default UserDetails;

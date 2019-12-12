@@ -103,6 +103,14 @@ const userSchema = new Schema({
 	confirmed: {
 		type: Boolean,
 		default: false
+	},
+	trustfactor: {
+		type: String,
+		required: false
+	},
+	description:{
+		type:String,
+		required:false
 	}
 });
 

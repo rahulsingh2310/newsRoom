@@ -30,6 +30,7 @@ exports.signup = (req, res, next) => {
 	const password = req.body.password;
 	var subscriptions = req.body.subscriptions;
 	var description = req.body.description;
+	var trustfactor = '0.0';
 	// const dob = req.body.dob;
 	// const mobile = req.body.mobile;
 	// const city = req.body.city;
@@ -41,7 +42,8 @@ exports.signup = (req, res, next) => {
 			const user = new User({
 				email: email,
 				password: hashedPw,
-				name: name
+				name: name,
+				trustfactor: trustfactor
 
 				// dob: dob,
 				// mobile: mobile,
@@ -105,6 +107,7 @@ exports.login = (req, res, next) => {
 	const password = req.body.password;
 	console.log(req);
 	let loadedUser;
+	let subscribed;
 	User.findOne({ email: email })
 		.then(user => {
 			if (!user) {
@@ -121,6 +124,11 @@ exports.login = (req, res, next) => {
 				error.statusCode = 401;
 				throw error;
 			}
+			if (loadedUser.subscriptions == 'Grammar-Check') {
+				subscribed = true;
+			} else {
+				subscribed = false;
+			}
 			const token = jwt.sign(
 				{
 					email: loadedUser.email,
@@ -129,7 +137,13 @@ exports.login = (req, res, next) => {
 				'somesupersecretsecret',
 				{ expiresIn: '2h' }
 			);
-			res.status(200).json({ token: token, userId: loadedUser._id.toString() });
+			res
+				.status(200)
+				.json({
+					token: token,
+					userId: loadedUser._id.toString(),
+					subscriptions: subscribed
+				});
 		})
 		.catch(err => {
 			if (!err.statusCode) {

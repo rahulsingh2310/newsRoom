@@ -31,6 +31,11 @@ export default function() {
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/myposts",
     },
+    {
+      title: "Recommended News",
+      htmlBefore: '<i class="material-icons">whatshot</i>',
+      to: "/recommended-news",
+    },
     /*{
       title: "Forms & Components",
       htmlBefore: '<i class="material-icons">view_module</i>',

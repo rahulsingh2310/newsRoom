@@ -13,7 +13,8 @@ import MyNewsPosts from "./views/mypost";
 import AddNewPost from "./views/AddNewPost";
 import { DefaultLayout } from "./layouts";
 import * as actions from './store/actions/index';
-import TrendingNews from "./views/trendingnews"
+import TrendingNews from "./views/trendingnews";
+import RecommendedNews from "./views/recommendednews";
 import UserProfileLite from "./views/UserProfileLite";
 import logout from "./container/auth/logout";
 import NewsFullPosts from "./views/newsfullpost";
@@ -29,7 +30,6 @@ class App extends Component{
   render () {
     let routes = (
       <Switch>
-        <Route path="/otheruser" component={OtherUserProfileLite} />
         <Route path="/auth/login" component={Auth} />
         <Route path="/auth/signup" component={AuthSignup} />
         <Route path="/" exact component={NewsPosts} />
@@ -38,7 +38,8 @@ class App extends Component{
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/news/:id"  component={Tagsfetch}/>
         <Route path="/user/:id" component={OtherUserProfileLite}/>
-
+        <Route path="/recommended-news" component={RecommendedNews} />
+       
         <Route path="/myposts" component={MyNewsPosts} />
         {/* <Route path="/user-profile-lite" component={UserProfileLite} /> */}
         {/* <Route path="/other-user-profile-lite" component={AddNewPost} />         */}
@@ -51,10 +52,9 @@ class App extends Component{
     if ( this.props.isAuthenticated ) {
       routes = (
         <Switch>
-          
+          <Route path="/recommended-news" component={RecommendedNews} />
         <Route path="/user-profile-lite" component={UserProfileLite} />
         <Route path="/trending-news" component={TrendingNews} />
-        <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/fullPost/:id" component={NewsFullPosts}/>
         <Route path="/news/:id" component={Tagsfetch}/>
         <Route path="/user/:id" component={OtherUserProfileLite}/>
@@ -66,7 +66,7 @@ class App extends Component{
           <Route path="/add-new-post" component={AddNewPost} />
           <Route path="/myposts" component={MyNewsPosts} />
       <Route path="/logout" component={logout}/>
-      <Route path="/otheruser" component={OtherUserProfileLite} />
+      {/* <Route path="/otheruser" component={OtherUserProfileLite} /> */}
           <Route path="/" exact component={NewsPosts} />
           <Redirect to="/" />
         </Switch>

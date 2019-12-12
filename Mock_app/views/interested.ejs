@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<title>Interested Users</title>
+		<!-- Font Awesome -->
+		<link
+			rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+		/>
+		<!-- Bootstrap core CSS -->
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Material Design Bootstrap -->
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Your custom styles (optional) -->
+		<!-- <link href="css/style.css" rel="stylesheet"> -->
+	</head>
+
+	<body>
+		<header>
+			<!--Navbar-->
+			<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+				<!-- Navbar brand -->
+				<a class="navbar-brand" href="#">Grammar-Check</a>
+
+				<!-- Collapse button -->
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-toggle="collapse"
+					data-target="#basicExampleNav"
+					aria-controls="basicExampleNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- Collapsible content -->
+				<div class="collapse navbar-collapse" id="basicExampleNav">
+					<!-- Links -->
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="http://localhost:4001/admin/getNews"
+								>Get News
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="http://localhost:4001/admin/history"
+								>History</a
+							>
+						</li>
+						<li class="nav-item active">
+							<a class="nav-link" href="#"
+								>Interested Users <span class="sr-only">(current)</span></a
+							>
+						</li>
+					</ul>
+					<!-- Links -->
+				</div>
+				<!-- Collapsible content -->
+			</nav>
+			<!--/.Navbar-->
+		</header>
+		<div class="container" style="padding-top:60px;padding-bottom:20px">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">S.no</th>
+						<th scope="col">Name</th>
+						<th scope="col">E-mail</th>
+						<th scope="col">Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for (var i=0;i < users.length;i++) {%>
+					<tr>
+						<th scope="row"><%= i+1%></th>
+						<td><%= users[i].name %></td>
+						<td><%= users[i].email %></td>
+						<td>Email-Sent</td>
+					</tr>
+					<%}%>
+					<tr>
+						<th scope="row">#</th>
+						<td>Dummy</td>
+						<td>Dummy</td>
+						<td>Dummy</td>
+					</tr>
+					<tr>
+						<th scope="row">#</th>
+						<td>Dummy</td>
+						<td>Dummy</td>
+						<td>Dummy</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- /Start your project here-->
+		<!-- Footer -->
+		<!-- Footer -->
+		<footer class="page-footer font-small unique-color-dark">
+			<div class="primary-color">
+				<div class="container">
+					<!-- Grid row-->
+					<div class="row py-4 d-flex align-items-center">
+						<!-- Grid column -->
+						<div
+							class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0"
+						>
+							<h6 class="mb-0">Get connected with us on social networks!</h6>
+						</div>
+						<!-- Grid column -->
+
+						<!-- Grid column -->
+						<div class="col-md-6 col-lg-7 text-center text-md-right">
+							<!-- Facebook -->
+							<a class="fb-ic">
+								<i class="fab fa-facebook-f white-text mr-4"> </i>
+							</a>
+							<!-- Twitter -->
+							<a class="tw-ic">
+								<i class="fab fa-twitter white-text mr-4"> </i>
+							</a>
+							<!-- Google +-->
+							<a class="gplus-ic">
+								<i class="fab fa-google-plus-g white-text mr-4"> </i>
+							</a>
+							<!--Linkedin -->
+							<a class="li-ic">
+								<i class="fab fa-linkedin-in white-text mr-4"> </i>
+							</a>
+							<!--Instagram-->
+							<a class="ins-ic">
+								<i class="fab fa-instagram white-text"> </i>
+							</a>
+						</div>
+						<!-- Grid column -->
+					</div>
+					<!-- Grid row-->
+				</div>
+			</div>
+
+			<!-- Footer Links -->
+			<div class="container text-center text-md-left mt-5">
+				<!-- Grid row -->
+				<div class="row mt-3">
+					<!-- Grid column -->
+					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+						<!-- Content -->
+						<h6 class="text-uppercase font-weight-bold">Company name</h6>
+						<hr
+							class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+							style="width: 60px;"
+						/>
+						<p>
+							Grammar-Check can correct grammar in any given article,not only
+							that it can also modify the article into most understandable
+							format.
+						</p>
+					</div>
+					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+						<!-- Links -->
+						<h6 class="text-uppercase font-weight-bold">Contact</h6>
+						<hr
+							class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto"
+							style="width: 60px;"
+						/>
+						<p><i class="fas fa-home mr-3"></i> IIIT Sricity,India</p>
+						<p><i class="fas fa-envelope mr-3"></i> grammarcheck05@gmail.com</p>
+						<p><i class="fas fa-phone mr-3"></i> 9912342266</p>
+						<p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+					</div>
+					<!-- Grid column -->
+				</div>
+				<!-- Grid row -->
+			</div>
+			<!-- Footer Links -->
+
+			<!-- Copyright -->
+			<div class="footer-copyright text-center py-3">
+				© 2019 Copyright:Grammar-Check
+			</div>
+			<!-- Copyright -->
+		</footer>
+		<!-- Footer -->
+		<!-- Footer -->
+		<!-- SCRIPTS -->
+		<!-- JQuery -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+		></script>
+		<!-- Bootstrap tooltips -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/popper.min.js"
+		></script>
+		<!-- Bootstrap core JavaScript -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
+		></script>
+		<!-- MDB core JavaScript -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"
+		></script>
+	</body>
+</html>

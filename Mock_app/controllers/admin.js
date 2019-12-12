@@ -173,7 +173,7 @@ exports.getInterestedUsers = (req, res, next) => {
 				sendMail(user.email);
 				storeUser(user.name, user.email);
 			}
-			res.json({
+			res.render('interested', {
 				users: users
 			});
 		})

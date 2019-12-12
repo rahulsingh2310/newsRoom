@@ -21,7 +21,12 @@ class UserAccountDetails extends React.Component{
   state = {
     profile:{
 
-    }
+    },
+    name : "",
+    description : " ",
+    contact : "",
+    state : "",
+
   };
 
   componentDidMount(){
@@ -34,11 +39,38 @@ class UserAccountDetails extends React.Component{
       console.log(response.data.user);
 
       this.setState({profile:response.data.user});
+      console.log(this.state);
     })
     .catch(err => {
       console.log(err.response);
     });
   }; 
+
+
+  update = () => {
+    const data = {
+      description : localStorage.getItem("description"),
+      name : this.state.profile.name,
+    }
+    axios({ method:'get',url:'http://localhost:8080/user/updateprofile',
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }}, data)
+    .then( response => {
+      console.log(response.data.user);
+
+      this.setState({profile:response.data.user});
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+  }; 
+  
+  changehandler= (e,what) => {
+    this.setState({what : e.target.value});
+    localStorage.setItem(what, e.target.value);
+  }
+
 
   render(){
     return(
@@ -59,7 +91,7 @@ class UserAccountDetails extends React.Component{
                       id="feFirstName"
                       placeholder="Name"
                       value = {this.state.profile.name}
-                      onChange={() => {}}
+                      onChange={(e) => this.changehandler(e,"name")}
                     />
                   </Col>
                 </Row>
@@ -72,7 +104,7 @@ class UserAccountDetails extends React.Component{
                       placeholder="9876543123"
                       value = {this.state.profile.mobile}
 
-                      onChange={() => {}}
+                      onChange={(e) => this.changehandler(e,"name")}
                     />
                   </Col>
                 </Row>
@@ -107,15 +139,20 @@ class UserAccountDetails extends React.Component{
                     id="feAddress"
                     placeholder="Address"
                     value = {this.state.profile.State}
-                    onChange={() => {}}
+                    onChange={(e) => this.changehandler(e,"state")}
                   />
                 </FormGroup>
                 <Row form>
                   {/* Description */}
-                  <Col md="12" className="form-group">
-                    <label htmlFor="feDescription">Description</label>
-                    <FormTextarea id="feDescription" rows="5" />
-                  </Col>
+                  <FormGroup>
+                  <label htmlFor="feAddress">Address</label>
+                  <FormInput
+                    id="feAddress"
+                    placeholder="Description"
+                    value = {this.state.profile.description}
+                    onChange={(e) => this.changehandler(e,"description")}
+                  />
+                </FormGroup>
                 </Row>
                 <Button theme="accent">Update Account</Button>
               </Form>

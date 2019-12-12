@@ -18,6 +18,7 @@ import {
 } from "shards-react";
 import { Link } from "react-router-dom";
 import * as actions from '../../store/actions/index';
+import NewsPosts from "../../views/NewsPosts";
 
 
 
@@ -30,7 +31,11 @@ class posts extends React.Component {
     redirectProfile :"",
     image : "",
     likes_icon:"material-icons-outlined",
-    dislikes_icon:"material-icons-outlined"
+    dislikes_icon:"material-icons-outlined",
+    dislikenumber:"",
+    likenumber:"",
+    liked:false,
+    disliked:false,
 
   }
 
@@ -42,22 +47,48 @@ class posts extends React.Component {
        this.setState({image:'http://localhost:8080/'+this.props.image});
         this.setState({name:response.data.user.name});
         this.setState({userId:this.props.user});
-
+        this.setState({liked:this.props.liked});
+        this.setState({disliked:this.props.disliked})
+        // console.log(this.props.liked);
+        // console.log(this.props.dislike);
       });
+
+    axios.get( 'http://localhost:8080/feed/post/'+this.props.id)
+    .then( response => {
+      
+      this.setState({dislikenumber:response.data.post.dislikes.length});
+      this.setState({likenumber:response.data.post.likes.length});
+      console.log(this.state.post);
+      // [...this.state.posts].reverse().map(createListItem, this);
+      // console.log('dshdvhsvdvsd')
+      // this.state.posts.reverse();
+      // const like = response.data.posts.
+    });
+
+
+
+
+
+
+
+
+
+
   }
   
 
-  handleIncrement = () => {
+  // handleIncrement = () => {
 
-    this.setState({ likes_icon:"material-icons-round"})
-  }
+  //   this.setState({ likes_icon:"material-icons-round"})
+  // }
 
 
-  handleDecrement = () => {
-    this.setState({ dislikes_icon:"material-icons-round"})
-  }
+  // handleDecrement = () => {
+  //   this.setState({ dislikes_icon:"material-icons-round"})
+  // }
    
   likehandler = () => {
+    this.componentDidMount();
     axios({ method:'post',url:'http://localhost:8080/feed/post/like/'+this.props.id,
     headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
@@ -70,19 +101,40 @@ class posts extends React.Component {
         if(this.props.liked){
           this.setState({
             likes_icon:"material-icons-round"
+          });
+        }
+      }); 
+      
+      this.componentDidMount();
+  }
+
+
+  dislikehandler = () => {
+    this.componentDidMount();
+    axios({ method:'post',url:'http://localhost:8080/feed/post/dislike/'+this.props.id,
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+      .then(response  => {
+        console.log(response);
+        if(this.props.disliked){
+          this.setState({
+            dislikes_icon:"material-icons-round"
           })
         }
       }); 
+      this.componentDidMount();
+
   }
 
   goToPost = (Id) =>{
-    console.log(Id);
+    // console.log(Id);
     this.setState({redirect:Id})
     
   };
 
   goToProfile = (Id) =>{
-    console.log(Id);
+    // console.log(Id);
     this.setState({redirectProfile:Id})
     
   };
@@ -118,14 +170,14 @@ class posts extends React.Component {
       <div className="w-100" >
       { this.props.token_a ? <Button outline pill theme="light" className="mr-3 ml-2 float-left" onClick={this.likehandler}>
             <i class={this.props.liked ? "material-icons-round" : "material-icons-outlined" } style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
-            <span>{this.props.likes}</span>
+            <span>{this.state.likenumber}</span>
         </Button> 
         : <div></div> }
       
         { this.props.token_a
-        ? <div><Button outline pill theme="light" className="mr-3 float-left" onClick={this.handleDecrement}>
-        <i class={this.state.dislikes_icon} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
-        <span>{this.props.dislike}</span>
+        ? <div><Button outline pill theme="light" className="mr-3 float-left" onClick={this.dislikehandler}>
+        <i class={this.props.disliked ? "material-icons-round" : "material-icons-outlined"} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
+        <span>{this.state.dislikenumber}</span>
     </Button></div>
         : <div></div>
       }

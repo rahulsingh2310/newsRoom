@@ -11,17 +11,35 @@ import axios from 'axios';
 class Grammarcheck extends React.Component {
 
     state = {
-        grammar:"Subscribe"
+        grammar:"I am intrested",
+        interested: false,
     };
-  
-    checkhandler = () => {
-      axios({ method:'post',url:'http://localhost:8080/feed/post/like/'+this.props.id,
+
+    componentDidMount(){
+      axios({ method:'get',url:'http://localhost:8080/user/profile',
     headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
       }})
       .then(response  => {
-        // console.log('likeddd');
-        // console.log(this.props.liked);
+        if(response.data.user.interests.indexOf("Grammar-Check") >= 0){
+          this.setState({interested:true});
+        }
+        console.log(response);
+        console.log(this.state.interested);
+      }).catch(err => {
+          console.log(err);
+      });
+    };
+  
+    checkhandler = () => {
+      axios({ method:'post',url:'http://localhost:8080/user/interested',
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
+      .then(response  => {
+        console.log(response);
+      }).catch(err => {
+          console.log(err);
       });
     }
   
@@ -32,16 +50,20 @@ class Grammarcheck extends React.Component {
          <CardBody className="p-0">
         <Row>
         <Col className="mt-3">
-        <strong className=" ml-3">Are you interested in Grammarcheck ?</strong>
+        {this.state.interested===false ? <strong className=" ml-3">Are you interested in Grammarcheck ?</strong> : <div></div>}
         </Col>
         
         
         </Row>
-        <Button className="mt-2 mb-3 ml-3" onclick={this.checkhandler}>{this.state.grammar}</Button>
+        {this.state.interested===false ? <Button className="mt-2 mb-3 ml-3" onClick={this.checkhandler}>{this.state.grammar}</Button> : <div></div>}
+
         <br></br>
         <Row className="ml-3">
-        <strong className="" style={{color:"#1565C0"}}><i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>check</i>
-            Grammarcheck has sent you an email.<br></br> &nbsp; &nbsp; &nbsp; &nbsp; Please check your email.</strong>
+
+          {/* <Button className="mt-2 mb-3 ml-3" onClick={this.checkhandler}>{this.state.grammar}</Button> */}
+          {this.state.interested===true ? <div> <strong className="" style={{color:"#155C0"}}><i class="material-icons" style={{color:"#1565C0",fontSize:"30px"}}>check</i>
+            Grammarcheck has sent you an email.<br></br> &nbsp; &nbsp; &nbsp; &nbsp; Please check your email.</strong></div> : <div></div>}
+       
         </Row>
         </CardBody>
   </Card>
@@ -52,7 +74,7 @@ class Grammarcheck extends React.Component {
 
 const mapStateToProps = state => {
   return {
-      id : state.auth.userId,
+      token : state.auth.token,
   };
 };
 

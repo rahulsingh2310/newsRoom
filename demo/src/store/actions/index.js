@@ -7,6 +7,10 @@ export {
 } from './auth';
 
 export{
-    uploadPost
+    uploadPost,
+    uploadSuccess,
+    uploadFail,
+    
+
 } from './upload' ; 
 

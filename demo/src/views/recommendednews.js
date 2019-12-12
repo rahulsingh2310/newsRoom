@@ -3,10 +3,10 @@ import { Container, Row, Col } from "shards-react";
 
 
 import PageTitle from "../components/common/PageTitle";
-import Trending from "../components/trending/trending";
+import Recommended from "../components/recommended/recommended";
 import axios from 'axios';
 
-class TrendingNews extends Component {
+class RecommendedNews extends Component {
   state = {
     news : [],
     image : "",
@@ -14,7 +14,7 @@ class TrendingNews extends Component {
   }
 
   componentDidMount(){
-    axios.get( 'http://localhost:8080/feed/trending')
+    axios.get( 'http://localhost:8080/feed/newstorecommend')
     .then( response => {
       console.log(response);
       this.setState({news:response.data.post});
@@ -24,7 +24,7 @@ class TrendingNews extends Component {
 
   render () {
     const trending = this.state.news.map(tnews => {
-      return <Trending  key={tnews._id} title={tnews.title} body={tnews.content} image={tnews.imageUrl} />;
+      return <Recommended  key={tnews._id} title={tnews.title} body={tnews.content} image={tnews.imageUrl} />;
     });
     return (
       // <div>
@@ -33,7 +33,7 @@ class TrendingNews extends Component {
       <Container fluid className="main-content-container px-4 pb-4">
          {/* Page Header */}
            <Row noGutters className="page-header py-4">
-             <PageTitle sm="4" title="Trending News" subtitle="News Posts" className="text-sm-left" />
+             <PageTitle sm="4" title="Recommended News" subtitle="News Posts" className="text-sm-left" />
            </Row>
       
            <Row>
@@ -64,4 +64,4 @@ class TrendingNews extends Component {
 //   </Container>
 // );
 
-export default TrendingNews;
+export default RecommendedNews;

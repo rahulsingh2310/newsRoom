@@ -11,16 +11,21 @@ import { generateBase64FromImage } from '../../utils/images';
 
 import FormCheckboxExample from "./sideCategories";
 import BasicFormTextarea from "./Editornew";
+import { Redirect } from 'react-router-dom';
+
 
 class Editorbox extends React.Component {
 
   state ={
     title: "",
     data :[],
+    success : "",
   };
 
   handleChange(e) {
     this.setState({ title: e.target.value });
+    // console.log(this.props.load);
+
     localStorage.setItem("titleUpload", e.target.value);
   }
 
@@ -31,17 +36,24 @@ class Editorbox extends React.Component {
 
   submitHandler = ( event ) => {
     event.preventDefault();
+    console.log(this.props.load);
     this.props.onUpload( localStorage.getItem('titleUpload') 
     , localStorage.getItem('bodyUpload') , this.state.data, localStorage.getItem('tags')  );
+    this.setState({success:true})
   }
 
   
 
   render() {
-    return (
-     
+    let authRedirect = null;
+        if (!this.props.load) {
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
+
+    return (     
       <Card small className="mb-3">
       <CardBody>
+      {this.state.success ? <h3>Your Post has been uploaded successfullly </h3> : <div></div>}
         <Form className="add-new-post" onSubmit={this.submitHandler} >
           <FormInput 
           size="lg" 
@@ -69,6 +81,13 @@ class Editorbox extends React.Component {
 
 }
 
+const mapStateToProps = state => {
+  return {
+      load: state.upload.loading,
+      authRedirectPath : state.upload.authRedirectPath,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
       onUpload: (title,body,image,tags) => dispatch( actions.uploadPost(title,body,image,tags) ),
@@ -76,4 +95,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps )(Editorbox));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps )(Editorbox));
