@@ -13,6 +13,13 @@ export const uploadSuccess = () => {
     };
 };
 
+export const setAuthRedirectPath = (path) => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        path: path
+    };
+};
+
 export const uploadFail = (error) => {
     return {
         type: actionTypes.UPLOAD_FAIL,

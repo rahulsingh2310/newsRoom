@@ -32,7 +32,10 @@ class posts extends React.Component {
     image : "",
     likes_icon:"material-icons-outlined",
     dislikes_icon:"material-icons-outlined",
-    post:{}
+    dislikenumber:"",
+    likenumber:"",
+    liked:false,
+    disliked:false,
 
   }
 
@@ -44,6 +47,8 @@ class posts extends React.Component {
        this.setState({image:'http://localhost:8080/'+this.props.image});
         this.setState({name:response.data.user.name});
         this.setState({userId:this.props.user});
+        this.setState({liked:this.props.liked});
+        this.setState({disliked:this.props.disliked})
         // console.log(this.props.liked);
         // console.log(this.props.dislike);
       });
@@ -51,13 +56,24 @@ class posts extends React.Component {
     axios.get( 'http://localhost:8080/feed/post/'+this.props.id)
     .then( response => {
       
-      this.setState({post:response.data.post});
+      this.setState({dislikenumber:response.data.post.dislikes.length});
+      this.setState({likenumber:response.data.post.likes.length});
       console.log(this.state.post);
       // [...this.state.posts].reverse().map(createListItem, this);
       // console.log('dshdvhsvdvsd')
       // this.state.posts.reverse();
       // const like = response.data.posts.
     });
+
+
+
+
+
+
+
+
+
+
   }
   
 
@@ -72,6 +88,7 @@ class posts extends React.Component {
   // }
    
   likehandler = () => {
+    this.componentDidMount();
     axios({ method:'post',url:'http://localhost:8080/feed/post/like/'+this.props.id,
     headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
@@ -93,6 +110,7 @@ class posts extends React.Component {
 
 
   dislikehandler = () => {
+    this.componentDidMount();
     axios({ method:'post',url:'http://localhost:8080/feed/post/dislike/'+this.props.id,
     headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
@@ -105,7 +123,7 @@ class posts extends React.Component {
           })
         }
       }); 
-      // NewsPosts.componentDidMount();
+      this.componentDidMount();
 
   }
 
@@ -152,14 +170,14 @@ class posts extends React.Component {
       <div className="w-100" >
       { this.props.token_a ? <Button outline pill theme="light" className="mr-3 ml-2 float-left" onClick={this.likehandler}>
             <i class={this.props.liked ? "material-icons-round" : "material-icons-outlined" } style={{color:"#1565C0",fontSize:"30px"}}>thumb_up_alt</i>
-            <span>{this.props.likes}</span>
+            <span>{this.state.likenumber}</span>
         </Button> 
         : <div></div> }
       
         { this.props.token_a
         ? <div><Button outline pill theme="light" className="mr-3 float-left" onClick={this.dislikehandler}>
         <i class={this.props.disliked ? "material-icons-round" : "material-icons-outlined"} style={{color:"#1565C0",fontSize:"30px"}}>thumb_down_alt</i>
-        <span>{this.props.dislike}</span>
+        <span>{this.state.dislikenumber}</span>
     </Button></div>
         : <div></div>
       }

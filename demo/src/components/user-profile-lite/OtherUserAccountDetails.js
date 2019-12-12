@@ -15,8 +15,41 @@ import {
   Button
 } from "shards-react";
 import UsersByDevice from "../blog/UsersByDevice";
+import axios from 'axios';
 
 class OtherUserAccountDetails extends Component {
+
+  state ={
+    name : "",
+    email : "",
+    id : "",
+  }
+
+  componentDidMount(){
+    axios.get( 'http://localhost:8080/user/publicprofile/'+this.props.id)
+    .then( response => {
+      console.log(response);
+      // console.log(this.props.match.params);
+      this.setState({name:response.data.user.name});
+      // this.setState({follower: response.data.user.followers.length});
+      // this.setState({following: response.data.user.followings.length});
+      this.setState({id: this.props.id});
+      console.log(this.state.id);
+    if (response.data.user.followers.find(o => o._id === this.props.userid) != null ){
+        console.log('followed hai');
+        this.setState({follow : true});
+      }
+      else{
+        this.setState({follow:false});
+      }
+      console.log(this.state.follow);
+
+    })
+    .catch(err => {
+        console.log(err);
+    });
+  };
+
   render() {
     return(
       <Card small className="mb-4">
@@ -33,7 +66,7 @@ class OtherUserAccountDetails extends Component {
                   <Col md="6" className="form-group">
   
                     <strong className="text-muted d-block mb-2">
-                  First Name : {this.props.name}
+                  First Name : {this.state.name}
                     </strong>
                   </Col>
                   

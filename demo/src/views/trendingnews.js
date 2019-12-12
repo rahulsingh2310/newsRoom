@@ -14,9 +14,10 @@ class TrendingNews extends Component {
   }
 
   componentDidMount(){
-    axios.get( 'http://localhost:8080/feed/posts')
+    axios.get( 'http://localhost:8080/feed/trending')
     .then( response => {
-      this.setState({news:response.data.posts});
+      console.log(response);
+      this.setState({news:response.data.post});
       // console.log(response);
     });
   }

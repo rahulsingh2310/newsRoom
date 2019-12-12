@@ -53,21 +53,21 @@ class NewsPosts extends React.Component {
       if(posts.likes.find(o => o._id === this.props.userid) != null)
        {
         return <Posts  key={posts._id} id={posts._id}
-        title={posts.title} likes={posts.likes.length} liked={true} disliked = {false}
-        user={posts.creator} dislike={posts.dislikes.length}
+        title={posts.title} liked={true} disliked = {false}
+        user={posts.creator} 
          image={posts.imageUrl} 
           />
        } 
        else if(posts.dislikes.find(o => o._id === this.props.userid) != null)
        {
        return <Posts  key={posts._id} id={posts._id}
-         title={posts.title} likes={posts.likes.length} 
-         user={posts.creator} dislike={posts.dislikes.length} liked={false} disliked={true}
+         title={posts.title} 
+         user={posts.creator}  liked={false} disliked={true}
           image={posts.imageUrl}  />
       } else{
         return <Posts  key={posts._id} id={posts._id}
-         title={posts.title} likes={posts.likes.length} 
-         user={posts.creator} dislike={posts.dislikes.length} liked={false} disliked={false}
+         title={posts.title} 
+         user={posts.creator} liked={false} disliked={false}
           image={posts.imageUrl} />
       }
         
