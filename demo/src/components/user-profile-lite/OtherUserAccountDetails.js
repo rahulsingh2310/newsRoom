@@ -31,7 +31,7 @@ class OtherUserAccountDetails extends Component {
       console.log(response);
       // console.log(this.props.match.params);
       this.setState({name:response.data.user.name});
-      // this.setState({follower: response.data.user.followers.length});
+      this.setState({email: response.data.user.email});
       // this.setState({following: response.data.user.followings.length});
       this.setState({id: this.props.id});
       console.log(this.state.id);
@@ -83,7 +83,7 @@ class OtherUserAccountDetails extends Component {
                   {/* Email */}
                   <Col md="6" className="form-group">
                     <strong className="text-muted d-block mb-2">
-                    Email : {this.props.email}
+                    Email :{this.state.email}
                     </strong>
                   </Col>
                 </Row>
