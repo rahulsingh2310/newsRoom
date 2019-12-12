@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Post = require('../models/post');
 // const path = require("path");
 
 exports.publicProfile = (req, res, next) => {
@@ -52,6 +53,14 @@ exports.getProfile = (req, res, next) => {
 			}
 			next(err);
 		});
+};
+
+const countArray = list => {
+	var c = 0;
+	for (var i of list.values()) {
+		c = c + 1;
+	}
+	return c;
 };
 
 const findArray = (list, userId) => {
@@ -178,9 +187,9 @@ exports.interested = (req, res, next) => {
 							message:
 								'Grammar-Check will contact you soon!! Happy Grammar-Checking'
 						});
-					}else {
+					} else {
 						res.json({
-							message:"Added in Interests"
+							message: 'Added in Interests'
 						});
 					}
 				} else {
@@ -241,5 +250,85 @@ exports.followlist = (req, res, next) => {
 				err.statusCode = 500;
 			}
 			next(err);
+		});
+};
+
+const sortPost = async userIdlist => {
+	var maxpostarray = [];
+	for (var id of userIdlist.values()) {
+		await Post.find({ creator: id })
+			.sort([['likenumber', 'desc']])
+			.limit(1)
+			.then(post => {
+				maxpostarray.push(...post);
+			});
+	}
+	return maxpostarray;
+};
+
+const sortArray = userIdlist => {
+	var trustfactor = [];
+	for (var id of userIdlist.values()) {
+		User.findById(id).then(user => {
+			trustfactor.push(Number(user.trustfactor));
+		});
+	}
+	for (var i = 0; i < trustfactor.length - 1; i++) {
+		for (var j = i; j < trustfactor.length - i - 1; j++) {
+			if (trustfactor[j] < trustfactor[j + 1]) {
+				var temp = trustfactor[j];
+				trustfactor[j] = trustfactor[j + 1];
+				trustfactor[j + 1] = temp;
+				temp = userIdlist[j];
+				userIdlist[j] = userIdlist[j + 1];
+				userIdlist[j + 1] = temp;
+			}
+		}
+	}
+	return userIdlist.slice(0, 10);
+};
+
+exports.newsRecommend = (req, res, next) => {
+	const userId = req.userId;
+	User.findById(userId)
+		.then(async user => {
+			const following = user.followings;
+			const sortedfollowinglist = await sortArray(following);
+			const sortedpost = await sortPost(sortedfollowinglist);
+			return sortedpost;
+		})
+		.then(result => {
+			res.status(200).json({
+				posts: result
+			});
+		})
+		.catch(err => {
+			if (!err.statusCode) {
+				err.statusCode = 500;
+			}
+			next(err);
+		});
+};
+
+exports.newsTorecommend = (req, res, next) => {
+	const userId = req.userId;
+	var postArray = [];
+	User.findById(userId)
+		.then(async user => {
+			const following = user.followings;
+			for (var val of following.values()) {
+				await Post.find({ creator: val })
+					.sort([['timestamp', 'desc']])
+					.limit(5)
+					.then(post => {
+						postArray.push(...post);
+					});
+			}
+			return postArray;
+		})
+		.then(result => {
+			res.status(200).json({
+				posts: result
+			});
 		});
 };

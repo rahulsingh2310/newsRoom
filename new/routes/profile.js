@@ -17,4 +17,8 @@ router.post('/interested', isAuth, profileController.interested);
 
 router.get('/followrecommendation', isAuth, profileController.followlist);
 
+router.get('/newsrecommend', isAuth, profileController.newsRecommend);
+
+router.get('/newstorecommend', isAuth, profileController.newsTorecommend);
+
 module.exports = router;
