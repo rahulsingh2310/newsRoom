@@ -25,6 +25,12 @@ const postSchema = new Schema(
 			type: String,
 			required: false
 		},
+		tags: [
+			{
+				type: String,
+				required: false
+			}
+		],
 		comments: [
 			{
 				type: Schema.Types.ObjectId,
