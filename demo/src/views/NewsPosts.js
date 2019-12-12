@@ -33,7 +33,7 @@ class NewsPosts extends React.Component {
     posts : []
   }
   
-  componentDidUpdate(){
+  componentDidMount(){
     axios.get( 'http://localhost:8080/feed/posts')
     .then( response => {
       this.setState({posts:response.data.posts.reverse()});

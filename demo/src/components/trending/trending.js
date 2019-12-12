@@ -16,7 +16,7 @@ class trending extends Component {
       return (
         <Col lg="3">         
         <Card >
-          <CardImg top src={this.state.img} />
+          <CardImg top src={this.state.img} style={{height:"220px"}}/>
           <CardBody>
             <p>{this.props.title}</p>
           </CardBody>
