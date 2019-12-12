@@ -69,7 +69,7 @@ class FullNewspost extends React.Component {
         <CardBody>
           <CardTitle>{this.state.post.title}</CardTitle>
           <p>{this.state.post.content}</p>
-          <Button outline pill className="ml-5 float-right" onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>By {this.state.name}</span></Button> 
+          {/* <Button outline pill className="ml-5 float-right" onClick={() => this.goToProfile(this.props.user)} ><span className="float-right" style={{fontSize:"15px"}}>By {this.state.name}</span></Button>  */}
      
       </CardBody>
       <CardFooter style={{height:"70px"}}>

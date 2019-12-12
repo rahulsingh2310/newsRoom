@@ -145,7 +145,7 @@ class UserAccountDetails extends React.Component{
                 <Row form>
                   {/* Description */}
                   <FormGroup>
-                  <label htmlFor="feAddress">Address</label>
+                  <label htmlFor="feAddress">Description</label>
                   <FormInput
                     id="feAddress"
                     placeholder="Description"

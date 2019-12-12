@@ -19,7 +19,7 @@ const navigationItems = ( props ) => (
     <div className="text-nowrap px-3 mt-2">
       <img
         className="user-avatar rounded-circle mr-2"
-        src={require("./../../../../images/avatars/0.jpg")}
+        src={require("../../../blog/avatar.png")}
         alt="User Avatar"
       />{" "}
       {!props.isauth ? <Button tag={Link} to="/auth/login" theme="primary">Login</Button> : <Button tag={Link} to="/logout" theme="primary">Logout</Button>}

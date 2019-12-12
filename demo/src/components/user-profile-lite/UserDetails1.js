@@ -82,7 +82,7 @@ class UserDetails1 extends React.Component{
 UserDetails1.defaultProps = {
   userDetails: {
     name: "Chris messina",
-    avatar: require("./../../images/avatars/0.jpg"),
+    avatar: require("./avatar.png"),
     jobTitle: "Project Manager",
     metaTitle: "Description",
     metaValue:

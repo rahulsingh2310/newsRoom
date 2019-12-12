@@ -154,7 +154,7 @@ class Authlogin extends Component {
         }
 
         return (
-            <Card className="rounded-9" style={{width:"35%",height:"420px",marginTop:"10%",marginLeft:"30%"}}> 
+            <Card className="rounded-9" style={{width:"35%",height:"450px",marginTop:"10%",marginLeft:"30%"}}> 
         
             <div className="p-3 mb-2 rounded-top bg-primary text-center text-white" style={{fontSize:"150%"}}>Login</div>
                 {authRedirect}
