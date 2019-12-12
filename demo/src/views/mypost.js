@@ -34,13 +34,25 @@ class MyNewsPosts extends React.Component {
   }
   
   componentDidMount(){
-    axios.get( 'http://localhost:8080/feed/posts')
+
+    // axios.get( 'http://localhost:8080/user_posts/'+this.props.userid)
+    // .then( response => {
+    //   console.log(response);
+
+    //   this.setState({posts:response.data.posts});
+    // });
+
+    axios({ method:'get',url:'http://localhost:8080/feed/user_posts/'+this.props.userid,
+    headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+      }})
     .then( response => {
       this.setState({posts:response.data.posts});
-      console.log(response);
-
+    })
+    .catch(err => {
+      console.log(err.response);
     });
-  }
+  }; 
   
 
   render() {
@@ -80,11 +92,9 @@ class MyNewsPosts extends React.Component {
 // export default NewsPosts;
 
 const mapStateToProps = state => {
-  const hi = {
-    isAuthenticated: state.auth.token !== null,
-    email : state.auth.email,
+  return  {
+    userid : state.auth.userId,
 };
-  return hi
 };
 
 

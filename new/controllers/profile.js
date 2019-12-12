@@ -176,6 +176,10 @@ exports.interested = (req, res, next) => {
 							message:
 								'Grammar-Check will contact you soon!! Happy Grammar-Checking'
 						});
+					}else {
+						res.json({
+							message:"Added in Interests"
+						});
 					}
 				} else {
 					res.json({
